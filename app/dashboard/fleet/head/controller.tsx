@@ -59,16 +59,18 @@ export const HeadUnitTable = () => {
   const { columns, url, method, initSort } = useHeadUnitTable();
 
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-semibold mb-4">Fleet Head Units</h2>
-      <TabulatorTable
-        id="fleet-table"
-        columns={columns}
-        url={url}
-        method={method}
-        initSort={initSort}
-        height="500px"
-      />
+    <div className="p-0 h-full flex flex-col">
+      <h2 className="text-lg font-semibold px-2 pt-1">Fleet Head Units</h2>
+      <div className="flex-1 min-h-0">
+        <TabulatorTable
+          id="fleet-table"
+          columns={columns}
+          url={url}
+          method={method}
+          initSort={initSort}
+          height="100%"
+        />
+      </div>
     </div>
   );
 };

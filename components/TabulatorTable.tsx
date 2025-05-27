@@ -1,6 +1,6 @@
 // 'use client'; // Keep this if it's a Next.js client component
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { ReactTabulator, ColumnDefinition } from 'react-tabulator';
 import { useTheme } from 'next-themes';
 import 'tabulator-tables/dist/css/tabulator_semanticui.min.css';
@@ -118,6 +118,9 @@ export default function TabulatorTable({
   const { theme } = useTheme();
   const isDarkTheme = theme === 'dark';
   
+  // Create a ref to store the Tabulator instance
+  const tableRef = useRef<any>(null);
+  
   // Load dark theme CSS conditionally
   useDarkThemeCSS(isDarkTheme);
 
@@ -151,8 +154,10 @@ export default function TabulatorTable({
     headerSortTristate: true,
     initialSort: initSort,
 
-    layout: 'fitColumns',
-    resizableColumnFit: true,
+    layout: 'fitDataTable',
+    responsiveLayout: 'hide',
+    responsiveLayoutCollapseStartOpen: false,
+    resizableColumnFit: false,
 
     pagination: true,
     paginationMode: 'remote', // Pagination handled by the backend
@@ -267,9 +272,48 @@ export default function TabulatorTable({
     },
   }), [height, url, method, initSort, memoizedColumns, isDarkTheme]); // Added isDarkTheme to dependencies
 
+  // Handle window resize and sidebar toggle
+  useEffect(() => {
+    if (!tableRef.current) return;
+    
+    const handleResize = () => {
+      const table = tableRef.current?.table;
+      if (table) {
+        // Force recalculate column widths on resize
+        table.setHeight();
+        table.redraw(true);
+      }
+    };
+    
+    // Initial setup
+    handleResize();
+    
+    // Add event listener for window resize
+    window.addEventListener('resize', handleResize);
+    
+    // Cleanup function
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [id]);
+
   return (
-    <div className={isDarkTheme ? 'tabulator-dark-theme' : ''}>
+    <div 
+      className={`${isDarkTheme ? 'tabulator-dark-theme' : ''} w-full overflow-hidden`}
+      style={{
+        width: '100%',
+        height: '100%',
+        maxWidth: '100%',
+        maxHeight: '100%',
+        boxSizing: 'border-box',
+        padding: '0',
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column'
+      }}
+    >
       <ReactTabulator
+        ref={tableRef}
         id={id.startsWith('#') ? id.slice(1) : id} // Ensure ID is clean
         columns={memoizedColumns}
         options={{
