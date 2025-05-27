@@ -5,8 +5,6 @@ import { ColumnDefinition } from 'react-tabulator';
 import TabulatorTable from '@/components/tabulator';
 import { API_BASE_URL } from '@/lib/constants';
 
-// Using the correct type from react-tabulator
-
 interface TableConfig {
   columns: ColumnDefinition[];
   url: string;
@@ -17,32 +15,14 @@ interface TableConfig {
 function useTable(): TableConfig {
   const columns: ColumnDefinition[] = useMemo(() => [
     { 
-      title: 'Head ID', 
-      field: 'head_id', 
+      title: 'Tail ID', 
+      field: 'tail_id', 
       headerSort: true,
       headerFilter: 'input',
     },
     { 
       title: 'Description', 
       field: 'description', 
-      headerSort: true,
-      headerFilter: 'input',
-    },
-    { 
-      title: 'License Plate', 
-      field: 'license_plate', 
-      headerSort: true,
-      headerFilter: 'input',
-    },    
-    { 
-      title: 'STNK Expiry', 
-      field: 'stnk_expiry', 
-      headerSort: true,
-      headerFilter: 'input',
-    },   
-    { 
-      title: 'Liter Full', 
-      field: 'liter_full', 
       headerSort: true,
       headerFilter: 'input',
     },
@@ -74,9 +54,9 @@ function useTable(): TableConfig {
 
   return {
     columns,
-    url: `${API_BASE_URL}/api/master-data/head/master-head/`,
+    url: `${API_BASE_URL}/api/master-data/tail/master-tail/`,
     method: 'POST' as const,
-    initSort: [{ column: 'head_id', dir: 'asc' as const }],
+    initSort: [{ column: 'tail_id', dir: 'asc' as const }],
   };
 }
 
@@ -85,10 +65,10 @@ export const DataTable = () => {
 
   return (
     <div className="p-0 h-full flex flex-col">
-      <h2 className="text-lg font-semibold px-2 pt-1">Head Units</h2>
+      <h2 className="text-lg font-semibold px-2 pt-1">Tail Units</h2>
       <div className="flex-1 min-h-0">
         <TabulatorTable
-          id="head-table"
+          id="tail-table"
           columns={columns}
           url={url}
           method={method}
