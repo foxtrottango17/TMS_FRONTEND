@@ -719,7 +719,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             </Button>
           )}
 
-          <div className="ml-auto flex items-center gap-4">
+          <div className="ml-auto flex items-center gap-1">
             <div className="relative hidden md:flex">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input type="search" placeholder="Search..." className="w-[200px] rounded-md border pl-8 md:w-[300px]" />
@@ -776,7 +776,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
         {/* Page Content */}
         <main className="flex-1">
-          <div className="flex-1 space-y-4 p-4 md:p-8">{children}</div>
+          <div className="flex-1 space-y-2 p-2">{children}</div>
         </main>
       </div>
     </div>

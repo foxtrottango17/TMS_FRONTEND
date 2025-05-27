@@ -1,0 +1,133 @@
+/*
+ * Dark Theme for ReactTabulator with Semantic UI base
+ * This CSS should be imported *after* 'tabulator-tables/dist/css/tabulator_semanticui.min.css'
+ * to ensure overrides take effect.
+ */
+
+/* Scope all dark theme styles under .tabulator-dark-theme */
+.tabulator-dark-theme .tabulator {
+  background-color: #2c2c2c !important; /* Dark background */
+  color: #e0e0e0 !important; /* Light text */
+  border: 1px solid #444444 !important; /* Darker border */
+}
+
+/* Table header styles */
+.tabulator-dark-theme .tabulator .tabulator-header {
+  background-color: #3a3a3a !important; /* Slightly lighter dark for header */
+  color: #f0f0f0 !important; /* Lighter text for header */
+  border-bottom: 1px solid #555555 !important; /* Header bottom border */
+}
+
+.tabulator-dark-theme .tabulator .tabulator-header .tabulator-col {
+  background-color: #3a3a3a !important; /* Ensure individual column headers match */
+  color: #f0f0f0 !important;
+  border-right: 1px solid #444444 !important; /* Column header borders */
+}
+
+.tabulator-dark-theme .tabulator .tabulator-header .tabulator-col.tabulator-sortable:hover {
+  background-color: #4a4a4a !important; /* Hover state for sortable headers */
+}
+
+/* Row styles */
+.tabulator-dark-theme .tabulator .tabulator-row {
+  background-color: #2c2c2c !important; /* Default row background */
+  color: #e0e0e0 !important; /* Default row text */
+  border-bottom: 1px solid #3c3c3c !important; /* Row separator */
+}
+
+.tabulator-dark-theme .tabulator .tabulator-row.tabulator-row-even {
+  background-color: #333333 !important; /* Alternate row background for striping */
+}
+
+.tabulator-dark-theme .tabulator .tabulator-row.tabulator-selected {
+  background-color: #4a4a4a !important; /* Selected row background */
+  color: #ffffff !important; /* Selected row text */
+}
+
+.tabulator-dark-theme .tabulator .tabulator-row.tabulator-highlight {
+  background-color: #5a5a5a !important; /* Row highlight on hover/interaction */
+}
+
+/* Cell styles */
+.tabulator-dark-theme .tabulator .tabulator-cell {
+  border-right: 1px solid #3c3c3c !important; /* Cell borders */
+  color: #e0e0e0 !important;
+}
+
+/* Pagination controls */
+.tabulator-dark-theme .tabulator .tabulator-footer {
+  background-color: #3a3a3a !important; /* Footer background */
+  color: #e0e0e0 !important;
+  border-top: 1px solid #555555 !important; /* Footer top border */
+}
+
+.tabulator-dark-theme .tabulator .tabulator-footer .tabulator-page,
+.tabulator-dark-theme .tabulator .tabulator-footer .tabulator-pages button {
+  background-color: #4a4a4a !important; /* Pagination button background */
+  color: #e0e0e0 !important;
+  border: 1px solid #555555 !important;
+}
+
+.tabulator-dark-theme .tabulator .tabulator-footer .tabulator-page.active,
+.tabulator-dark-theme .tabulator .tabulator-footer .tabulator-pages button.active {
+  background-color: #007bff !important; /* Active pagination button (Semantic UI blue) */
+  color: #ffffff !important;
+  border-color: #007bff !important;
+}
+
+.tabulator-dark-theme .tabulator .tabulator-footer .tabulator-page:hover,
+.tabulator-dark-theme .tabulator .tabulator-footer .tabulator-pages button:hover {
+  background-color: #5a5a5a !important; /* Pagination button hover */
+}
+
+/* Filter inputs */
+.tabulator-dark-theme .tabulator .tabulator-header input,
+.tabulator-dark-theme .tabulator .tabulator-header select {
+  background-color: #3a3a3a !important;
+  color: #e0e0e0 !important;
+  border: 1px solid #555555 !important;
+}
+
+/* Editors (when a cell is being edited) */
+.tabulator-dark-theme .tabulator-edit-box {
+  background-color: #4a4a4a !important;
+  color: #ffffff !important;
+  border: 1px solid #007bff !important; /* Highlight border for active editor */
+}
+
+/* Loading overlay */
+.tabulator-dark-theme .tabulator-loader {
+  background-color: rgba(44, 44, 44, 0.8) !important; /* Semi-transparent dark overlay */
+}
+
+.tabulator-dark-theme .tabulator-loader .tabulator-loader-msg {
+  background-color: #3a3a3a !important;
+  color: #e0e0e0 !important;
+  border: 1px solid #555555 !important;
+}
+
+/* Row formatter for deleted rows */
+.tabulator-dark-theme .tabulator .tabulator-row[data-deleted="true"] {
+  background-color: #4a2c2c !important; /* Darker red for deleted rows */
+  color: #ffaaaa !important;
+  text-decoration: line-through !important;
+}
+
+/* Adjusting scrollbar for dark theme (browser dependent) */
+.tabulator-dark-theme .tabulator::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.tabulator-dark-theme .tabulator::-webkit-scrollbar-track {
+  background: #333;
+}
+
+.tabulator-dark-theme .tabulator::-webkit-scrollbar-thumb {
+  background: #666;
+  border-radius: 5px;
+}
+
+.tabulator-dark-theme .tabulator::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}

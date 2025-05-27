@@ -1,0 +1,259 @@
+/*
+ * Dark Theme for ReactTabulator
+ * Matches the application's dark theme using CSS variables
+ */
+
+/* Scope all dark theme styles under .tabulator-dark-theme */
+.tabulator-dark-theme {
+  /* Base color variables - all based on a darker shade of hsl(217.2 32.6% 17.5%) */
+  --tabulator-base-hue: 217.2;
+  --tabulator-base-saturation: 32.6%;
+  --tabulator-base-lightness: 10%;
+  
+  /* Derived colors */
+  --tabulator-bg: hsl(var(--tabulator-base-hue) var(--tabulator-base-saturation) var(--tabulator-base-lightness));
+  --tabulator-text: hsl(0, 0%, 90%);
+  --tabulator-border: hsl(var(--tabulator-base-hue) var(--tabulator-base-saturation) calc(var(--tabulator-base-lightness) + 5%));
+  --tabulator-header-bg: hsl(var(--tabulator-base-hue) var(--tabulator-base-saturation) calc(var(--tabulator-base-lightness) + 5%));
+  --tabulator-row-even: hsl(var(--tabulator-base-hue) var(--tabulator-base-saturation) calc(var(--tabulator-base-lightness) + 2%));
+  --tabulator-row-hover: hsl(var(--tabulator-base-hue) var(--tabulator-base-saturation) calc(var(--tabulator-base-lightness) + 10%));
+  --tabulator-row-selected: hsl(var(--tabulator-base-hue) var(--tabulator-base-saturation) calc(var(--tabulator-base-lightness) + 15%));
+  --tabulator-input-bg: hsl(var(--tabulator-base-hue) var(--tabulator-base-saturation) calc(var(--tabulator-base-lightness) + 8%));
+  --tabulator-input-border: hsl(var(--tabulator-base-hue) var(--tabulator-base-saturation) calc(var(--tabulator-base-lightness) + 12%));
+  --tabulator-pagination-bg: hsl(var(--tabulator-base-hue) var(--tabulator-base-saturation) calc(var(--tabulator-base-lightness) + 5%));
+  --tabulator-pagination-active: hsl(217.2, 91.2%, 59.8%);
+  --tabulator-deleted-row: hsl(0, 59%, 20%);
+}
+
+.tabulator-dark-theme .tabulator {
+  background-color: var(--tabulator-bg) !important;
+  color: var(--tabulator-text) !important;
+  border-color: var(--tabulator-border) !important;
+}
+
+/* Table header styles */
+.tabulator-dark-theme .tabulator .tabulator-header {
+  background-color: var(--tabulator-header-bg) !important;
+  color: var(--tabulator-text) !important;
+  border-bottom-color: var(--tabulator-border) !important;
+}
+
+.tabulator-dark-theme .tabulator .tabulator-header .tabulator-col {
+  background-color: var(--tabulator-header-bg) !important;
+  color: var(--tabulator-text) !important;
+  border-right-color: var(--tabulator-border) !important;
+}
+
+.tabulator-dark-theme .tabulator .tabulator-header .tabulator-col.tabulator-sortable:hover {
+  background-color: var(--tabulator-row-hover) !important;
+}
+
+/* Row styles */
+.tabulator-dark-theme .tabulator .tabulator-row {
+  background-color: var(--tabulator-bg) !important;
+  color: var(--tabulator-text) !important;
+  border-bottom-color: var(--tabulator-border) !important;
+  transition: background-color 0.2s ease;
+}
+
+.tabulator-dark-theme .tabulator .tabulator-row.tabulator-row-even {
+  background-color: var(--tabulator-row-even) !important;
+}
+
+.tabulator-dark-theme .tabulator .tabulator-row.tabulator-selected,
+.tabulator-dark-theme .tabulator .tabulator-row.tabulator-selected .tabulator-cell {
+  background-color: var(--tabulator-row-selected) !important;
+  color: var(--tabulator-text) !important;
+}
+
+.tabulator-dark-theme .tabulator .tabulator-row.tabulator-highlight,
+.tabulator-dark-theme .tabulator .tabulator-row:hover {
+  background-color: var(--tabulator-row-hover) !important;
+}
+
+/* Ensure first column is styled correctly */
+.tabulator-dark-theme .tabulator .tabulator-row .tabulator-cell:first-child,
+.tabulator-dark-theme .tabulator .tabulator-header .tabulator-col:first-child {
+  background-color: inherit !important;
+  border-right-color: var(--tabulator-border) !important;
+}
+
+/* Fix for frozen columns */
+.tabulator-dark-theme .tabulator-frozen {
+  background-color: var(--tabulator-bg) !important;
+}
+
+/* Fix for row selection */
+.tabulator-dark-theme .tabulator .tabulator-row.tabulator-selectable:hover {
+  background-color: var(--tabulator-row-hover) !important;
+  cursor: pointer;
+}
+
+/* Cell styles */
+.tabulator-dark-theme .tabulator .tabulator-cell {
+  border-right-color: var(--tabulator-border) !important;
+  color: var(--tabulator-text) !important;
+}
+
+/* Pagination controls */
+.tabulator-dark-theme .tabulator .tabulator-footer {
+  background-color: var(--tabulator-pagination-bg) !important;
+  color: var(--tabulator-text) !important;
+  border-top: 1px solid var(--tabulator-border) !important;
+  padding: 8px 0;
+}
+
+/* Page size selector */
+.tabulator-dark-theme .tabulator-footer .tabulator-page-size {
+  color: var(--tabulator-text) !important;
+  margin-right: 10px;
+}
+
+.tabulator-dark-theme .tabulator-footer .tabulator-page-size select {
+  background-color: var(--tabulator-input-bg) !important;
+  border: 1px solid var(--tabulator-input-border) !important;
+  color: var(--tabulator-text) !important;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin: 0 5px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 8px center !important;
+  background-size: 16px !important;
+  padding-right: 30px !important;
+  transition: all 0.2s ease;
+  min-width: 70px;
+  text-align: left;
+}
+
+/* Dropdown arrow for Firefox */
+.tabulator-dark-theme .tabulator-footer .tabulator-page-size select::-ms-expand {
+  display: none;
+}
+
+/* Focus state */
+.tabulator-dark-theme .tabulator-footer .tabulator-page-size select:focus {
+  outline: none;
+  border-color: var(--tabulator-pagination-active) !important;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+/* Dropdown options */
+.tabulator-dark-theme .tabulator-footer .tabulator-page-size select option {
+  background-color: var(--tabulator-bg) !important;
+  color: var(--tabulator-text) !important;
+  border: none;
+  padding: 8px 12px;
+}
+
+/* Hover state for options */
+.tabulator-dark-theme .tabulator-footer .tabulator-page-size select option:hover,
+.tabulator-dark-theme .tabulator-footer .tabulator-page-size select option:focus {
+  background-color: var(--tabulator-row-hover) !important;
+  color: white !important;
+}
+
+/* Disabled state */
+.tabulator-dark-theme .tabulator-footer .tabulator-page-size select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Page buttons */
+.tabulator-dark-theme .tabulator .tabulator-footer .tabulator-page,
+.tabulator-dark-theme .tabulator .tabulator-footer .tabulator-pages button {
+  background-color: var(--tabulator-bg) !important;
+  color: var(--tabulator-text) !important;
+  border: 1px solid var(--tabulator-border) !important;
+  margin: 0 2px;
+  border-radius: 3px;
+  min-width: 30px;
+  height: 30px;
+  line-height: 28px;
+  transition: all 0.2s ease;
+}
+
+/* Active page button */
+.tabulator-dark-theme .tabulator .tabulator-footer .tabulator-page.active,
+.tabulator-dark-theme .tabulator .tabulator-footer .tabulator-pages button.active {
+  background-color: var(--tabulator-pagination-active) !important;
+  color: white !important;
+  border-color: var(--tabulator-pagination-active) !important;
+  font-weight: 500;
+}
+
+/* Hover states */
+.tabulator-dark-theme .tabulator .tabulator-footer .tabulator-page:not(.disabled):hover,
+.tabulator-dark-theme .tabulator .tabulator-footer .tabulator-pages button:not(.disabled):hover {
+  background-color: var(--tabulator-row-hover) !important;
+  color: white !important;
+}
+
+/* Disabled buttons */
+.tabulator-dark-theme .tabulator .tabulator-footer .tabulator-page.disabled,
+.tabulator-dark-theme .tabulator .tabulator-footer .tabulator-pages button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Page info */
+.tabulator-dark-theme .tabulator-footer .tabulator-page-size,
+.tabulator-dark-theme .tabulator-footer .tabulator-pages {
+  color: var(--tabulator-text) !important;
+}
+
+/* Filter inputs */
+.tabulator-dark-theme .tabulator .tabulator-header input,
+.tabulator-dark-theme .tabulator .tabulator-header select {
+  background-color: var(--tabulator-input-bg) !important;
+  color: var(--tabulator-text) !important;
+  border-color: var(--tabulator-input-border) !important;
+}
+
+/* Editors (when a cell is being edited) */
+.tabulator-dark-theme .tabulator-edit-box {
+  background-color: var(--tabulator-input-bg) !important;
+  color: var(--tabulator-text) !important;
+  border-color: var(--tabulator-pagination-active) !important;
+}
+
+/* Loading overlay */
+.tabulator-dark-theme .tabulator-loader {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.tabulator-dark-theme .tabulator-loader .tabulator-loader-msg {
+  background-color: var(--tabulator-header-bg) !important;
+  color: var(--tabulator-text) !important;
+  border-color: var(--tabulator-border) !important;
+}
+
+/* Row formatter for deleted rows */
+.tabulator-dark-theme .tabulator .tabulator-row[data-deleted="true"] {
+  background-color: var(--tabulator-deleted-row) !important;
+  color: #ffaaaa !important;
+  text-decoration: line-through !important;
+}
+
+/* Adjusting scrollbar for dark theme */
+.tabulator-dark-theme .tabulator::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.tabulator-dark-theme .tabulator::-webkit-scrollbar-track {
+  background: var(--tabulator-bg);
+}
+
+.tabulator-dark-theme .tabulator::-webkit-scrollbar-thumb {
+  background: var(--tabulator-border);
+  border-radius: 5px;
+}
+
+.tabulator-dark-theme .tabulator::-webkit-scrollbar-thumb:hover {
+  background: var(--tabulator-row-hover);
+}

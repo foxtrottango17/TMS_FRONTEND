@@ -1,8 +1,9 @@
 // 'use client'; // Keep this if it's a Next.js client component
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ReactTabulator, ColumnDefinition } from 'react-tabulator';
-import 'tabulator-tables/dist/css/tabulator.min.css';
+import { useTheme } from 'next-themes';
+import 'tabulator-tables/dist/css/tabulator_semanticui.min.css';
 import api from '@/lib/api'; // <--- Import your configured Axios instance
 
 // Type for AJAX response - describes the expected backend response structure
@@ -38,11 +39,72 @@ type TabulatorTableProps = {
 };
 
 /**
+ * Hook to detect system dark mode preference
+ */
+const useSystemDarkMode = () => {
+  const [isDarkMode, setIsDarkMode] = React.useState(false);
+
+  useEffect(() => {
+    // Check initial preference
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    setIsDarkMode(mediaQuery.matches);
+
+    // Listen for changes
+    const handleChange = (e: MediaQueryListEvent) => {
+      setIsDarkMode(e.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  return isDarkMode;
+};
+
+/**
+ * Hook to dynamically load dark theme CSS
+ */
+const useDarkThemeCSS = (shouldLoad: boolean) => {
+  useEffect(() => {
+    const linkId = 'tabulator-dark-theme';
+    
+    if (shouldLoad) {
+      // Check if dark theme CSS is already loaded
+      if (!document.getElementById(linkId)) {
+        const link = document.createElement('link');
+        link.id = linkId;
+        link.rel = 'stylesheet';
+        link.href = '/tabulator-dark-theme.css'; // Path to the dark theme CSS in the public directory
+        link.type = 'text/css';
+        document.head.appendChild(link);
+      }
+    } else {
+      // Remove dark theme CSS if it exists
+      const existingLink = document.getElementById(linkId);
+      if (existingLink) {
+        existingLink.remove();
+      }
+    }
+
+    // Cleanup function to remove the CSS when component unmounts
+    return () => {
+      if (shouldLoad) {
+        const existingLink = document.getElementById(linkId);
+        if (existingLink) {
+          existingLink.remove();
+        }
+      }
+    };
+  }, [shouldLoad]);
+};
+
+/**
  * A reusable React component that wraps ReactTabulator.
  * It provides common configurations for a Tabulator table,
  * allowing specific table settings to be passed via props.
  * It now leverages a pre-configured Axios instance for API calls,
  * benefiting from interceptors for authentication and token refresh.
+ * It also supports automatic dark theme loading based on next-themes.
  */
 export default function TabulatorTable({
   id,
@@ -52,6 +114,13 @@ export default function TabulatorTable({
   method,
   initSort = [],
 }: TabulatorTableProps) {
+  // Get theme from next-themes
+  const { theme } = useTheme();
+  const isDarkTheme = theme === 'dark';
+  
+  // Load dark theme CSS conditionally
+  useDarkThemeCSS(isDarkTheme);
+
   // Memoize columns to prevent unnecessary re-renders of the table
   const memoizedColumns = React.useMemo(() => {
     return columns.map((col) => {
@@ -110,19 +179,6 @@ export default function TabulatorTable({
       tabulatorConfig: RequestInit, // The config Tabulator built (method, headers, etc.)
       params: Record<string, any> // Tabulator's pagination, sort, filter parameters
     ) => {
-      
-
-      // // Transform Tabulator sort format to match your backend expectations
-      // if (params.sort && Array.isArray(params.sort)) {
-      //   console.log('Original sort params:', params.sort);
-      //   // Tabulator sends sort as an array of objects: [{column: "field", dir: "asc"}]
-      //   // Keep this format or transform as needed for your backend
-      //   params.sort = params.sort.map((sortItem: any) => ({
-      //     field: sortItem.column,
-      //     dir: sortItem.dir
-      //   }));
-      //   console.log('Transformed sort params:', params.sort);
-      // }
 
       console.log('Tabulator requesting:', tabulatorUrl, 'with params:', params);
       console.log('Tabulator config:', tabulatorConfig);
@@ -197,7 +253,7 @@ export default function TabulatorTable({
       const data = row.getData() as { deleted?: boolean };
       if (data.deleted) {
         const el = row.getElement();
-        el.style.backgroundColor = '#f8d7da';
+        el.style.backgroundColor = isDarkTheme ? '#5a2d31' : '#f8d7da'; // Adjust deleted row color based on theme
         el.style.textDecoration = 'line-through';
       }
     },
@@ -209,13 +265,21 @@ export default function TabulatorTable({
       resizable: 'header',
       minWidth: 100,
     },
-  }), [height, url, method, initSort, memoizedColumns]); // Added memoizedColumns to dependencies
+  }), [height, url, method, initSort, memoizedColumns, isDarkTheme]); // Added isDarkTheme to dependencies
 
   return (
-    <ReactTabulator
-      id={id.startsWith('#') ? id.slice(1) : id} // Ensure ID is clean
-      columns={memoizedColumns}
-      options={options}
-    />
+    <div className={isDarkTheme ? 'tabulator-dark-theme' : ''}>
+      <ReactTabulator
+        id={id.startsWith('#') ? id.slice(1) : id} // Ensure ID is clean
+        columns={memoizedColumns}
+        options={{
+          ...options,
+          // Ensure the theme is set to false to prevent Tabulator from applying its own theme
+          theme: false,
+          // Add the dark theme class to the Tabulator element when in dark mode
+          dataId: isDarkTheme ? 'tabulator-dark-theme' : '',
+        }}
+      />
+    </div>
   );
 }
