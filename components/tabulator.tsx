@@ -61,41 +61,26 @@ const useSystemDarkMode = () => {
   return isDarkMode;
 };
 
-/**
- * Hook to dynamically load dark theme CSS
- */
-const useDarkThemeCSS = (shouldLoad: boolean) => {
-  useEffect(() => {
-    const linkId = 'tabulator-dark-theme';
-    
-    if (shouldLoad) {
-      // Check if dark theme CSS is already loaded
-      if (!document.getElementById(linkId)) {
-        const link = document.createElement('link');
-        link.id = linkId;
-        link.rel = 'stylesheet';
-        link.href = '/tabulator-dark-theme.css'; // Path to the dark theme CSS in the public directory
-        link.type = 'text/css';
-        document.head.appendChild(link);
-      }
-    } else {
-      // Remove dark theme CSS if it exists
-      const existingLink = document.getElementById(linkId);
-      if (existingLink) {
-        existingLink.remove();
-      }
-    }
+// Import the CSS directly (Next.js will handle the bundling)
+import '@/styles/tabulator-dark-theme.css';
 
-    // Cleanup function to remove the CSS when component unmounts
+/**
+ * Hook to toggle dark theme class
+ */
+const useDarkThemeCSS = (isDark: boolean) => {
+  useEffect(() => {
+    const element = document.documentElement;
+    
+    if (isDark) {
+      element.classList.add('dark-theme');
+    } else {
+      element.classList.remove('dark-theme');
+    }
+    
     return () => {
-      if (shouldLoad) {
-        const existingLink = document.getElementById(linkId);
-        if (existingLink) {
-          existingLink.remove();
-        }
-      }
+      element.classList.remove('dark-theme');
     };
-  }, [shouldLoad]);
+  }, [isDark]);
 };
 
 /**

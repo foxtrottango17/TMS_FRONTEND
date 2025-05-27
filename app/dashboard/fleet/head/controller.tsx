@@ -2,7 +2,7 @@
 
 import React, { useMemo } from 'react';
 import { ColumnDefinition } from 'react-tabulator';
-import TabulatorTable from '@/components/TabulatorTable';
+import TabulatorTable from '@/components/tabulator';
 import { API_BASE_URL } from '@/lib/constants';
 
 interface HeadUnitTableConfig {
