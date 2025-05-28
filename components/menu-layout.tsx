@@ -327,10 +327,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                           asChild
                           className={cn(
                             "w-full justify-start",
-                            isActive("/dashboard/customer/warehouse") && "bg-accent text-accent-foreground",
+                            isActive("/dashboard/customer/customer_warehouse") && "bg-accent text-accent-foreground",
                           )}
                         >
-                          <Link href="/dashboard/customer/warehouse">
+                          <Link href="/dashboard/customer/customer_warehouse">
                             Warehouse
                           </Link>
                         </Button>
