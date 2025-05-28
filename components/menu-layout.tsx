@@ -41,7 +41,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default function MenuLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter()
   const { setIsAuthenticated } = useAuth()
   
@@ -83,8 +83,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     }))
   }
 
-  // Check if path is active
-  const isActive = (path: string) => pathname === path
+  // Check if path is active - supports exact matches and startsWith for nested paths
+  const isActive = (path: string, exact: boolean = false) => {
+    if (exact) return pathname === path
+    return pathname === path || pathname.startsWith(`${path}/`)
+  }
 
   // Safe way to check window size without causing hydration issues
   useEffect(() => {
@@ -152,7 +155,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 asChild
                 className={cn(
                   "w-full justify-start",
-                  isActive("/dashboard") && "bg-accent text-accent-foreground",
+                  isActive("/dashboard", true) && "bg-accent text-accent-foreground",
                   isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0",
                 )}
               >
@@ -205,12 +208,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                           size="sm"
                           asChild
                           className={cn(
-                            "w-full justify-start",
-                            isActive("/dashboard/resource/driver") && "bg-accent text-accent-foreground",
+                            "w-full justify-start pl-8 text-sm",
+                            isActive("/master-data/resource/driver") && "bg-accent text-accent-foreground"
                           )}
                         >
-                          <Link href="/dashboard/resource/driver">
-                            Driver
+                          <Link href="/master-data/resource/driver">
+                            <span>Driver</span>
                           </Link>
                         </Button>
                       </div>
@@ -247,10 +250,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                           asChild
                           className={cn(
                             "w-full justify-start",
-                            isActive("/dashboard/fleet/head") && "bg-accent text-accent-foreground",
+                            isActive("/master-data/fleet/head") && "bg-accent text-accent-foreground",
                           )}
                         >
-                          <Link href="/dashboard/fleet/head">
+                          <Link href="/master-data/fleet/head">
                             Head
                           </Link>
                         </Button>
@@ -260,10 +263,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                           asChild
                           className={cn(
                             "w-full justify-start",
-                            isActive("/dashboard/fleet/tail") && "bg-accent text-accent-foreground",
+                            isActive("/master-data/fleet/tail") && "bg-accent text-accent-foreground",
                           )}
                         >
-                          <Link href="/dashboard/fleet/tail">
+                          <Link href="/master-data/fleet/tail">
                             Tail
                           </Link>
                         </Button>
@@ -273,10 +276,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                           asChild
                           className={cn(
                             "w-full justify-start",
-                            isActive("/dashboard/fleet/container") && "bg-accent text-accent-foreground",
+                            isActive("/master-data/fleet/container") && "bg-accent text-accent-foreground",
                           )}
                         >
-                          <Link href="/dashboard/fleet/container">
+                          <Link href="/master-data/fleet/container">
                             Container
                           </Link>
                         </Button>
@@ -314,10 +317,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                           asChild
                           className={cn(
                             "w-full justify-start",
-                            isActive("/dashboard/customer/customer") && "bg-accent text-accent-foreground",
+                            isActive("/master-data/customer/customer") && "bg-accent text-accent-foreground",
                           )}
                         >
-                          <Link href="/dashboard/customer/customer">
+                          <Link href="/master-data/customer/customer">
                             Customer
                           </Link>
                         </Button>
@@ -327,10 +330,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                           asChild
                           className={cn(
                             "w-full justify-start",
-                            isActive("/dashboard/customer/customer_warehouse") && "bg-accent text-accent-foreground",
+                            isActive("/master-data/customer/customer_warehouse") && "bg-accent text-accent-foreground",
                           )}
                         >
-                          <Link href="/dashboard/customer/customer_warehouse">
+                          <Link href="/master-data/customer/customer_warehouse">
                             Warehouse
                           </Link>
                         </Button>
@@ -368,10 +371,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                           asChild
                           className={cn(
                             "w-full justify-start",
-                            isActive("/dashboard/route/route") && "bg-accent text-accent-foreground",
+                            isActive("/master-data/route/route") && "bg-accent text-accent-foreground",
                           )}
                         >
-                          <Link href="/dashboard/route/route">
+                          <Link href="/master-data/route/route">
                             Route
                           </Link>
                         </Button>
@@ -425,11 +428,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                           asChild
                           className={cn(
                             "w-full justify-start",
-                            isActive("/dashboard/order/delivery") && "bg-accent text-accent-foreground",
+                            isActive("/operation/order") && "bg-accent text-accent-foreground",
                           )}
                         >
-                          <Link href="/dashboard/order/delivery">
-                            Customer Order
+                          <Link href="/operation/order">
+                            Orders
                           </Link>
                         </Button>
                       </div>
@@ -466,24 +469,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                           asChild
                           className={cn(
                             "w-full justify-start",
-                            isActive("/dashboard/runsheet/pending") && "bg-accent text-accent-foreground",
+                            isActive("/operation/runsheet") && "bg-accent text-accent-foreground",
                           )}
                         >
-                          <Link href="/dashboard/runsheet/pending">
-                            Pending
-                          </Link>
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          asChild
-                          className={cn(
-                            "w-full justify-start",
-                            isActive("/dashboard/runsheet/final") && "bg-accent text-accent-foreground",
-                          )}
-                        >
-                          <Link href="/dashboard/runsheet/final">
-                            Final
+                          <Link href="/operation/runsheet">
+                            Runsheets
                           </Link>
                         </Button>
                       </div>
@@ -536,11 +526,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                           asChild
                           className={cn(
                             "w-full justify-start",
-                            isActive("/dashboard/trip/historical") && "bg-accent text-accent-foreground",
+                            isActive("/transactions/trips") && "bg-accent text-accent-foreground",
                           )}
                         >
-                          <Link href="/dashboard/trip/historical">
-                            Placeholder
+                          <Link href="/transactions/trips">
+                            Trip History
                           </Link>
                         </Button>
                       </div>
@@ -629,10 +619,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                             asChild
                             className={cn(
                               "w-full justify-start",
-                              isActive("/dashboard/resource/driver") && "bg-accent text-accent-foreground",
+                              isActive("/master-data/resource/driver") && "bg-accent text-accent-foreground",
                             )}
                           >
-                            <Link href="/dashboard/resource/driver">
+                            <Link href="/master-data/resource/driver">
                               <Users className="mr-2 h-4 w-4" />
                               Driver
                             </Link>
@@ -663,10 +653,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                             asChild
                             className={cn(
                               "w-full justify-start",
-                              isActive("/dashboard/fleet/head") && "bg-accent text-accent-foreground",
+                              isActive("/master-data/fleet/head") && "bg-accent text-accent-foreground",
                             )}
                           >
-                            <Link href="/dashboard/fleet/head">
+                            <Link href="/master-data/fleet/head">
                               <Truck className="mr-2 h-4 w-4" />
                               Head
                             </Link>
@@ -677,10 +667,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                             asChild
                             className={cn(
                               "w-full justify-start",
-                              isActive("/dashboard/fleet/tail") && "bg-accent text-accent-foreground",
+                              isActive("/master-data/fleet/tail") && "bg-accent text-accent-foreground",
                             )}
                           >
-                            <Link href="/dashboard/fleet/tail">
+                            <Link href="/master-data/fleet/tail">
                               <Truck className="mr-2 h-4 w-4" />
                               Tail
                             </Link>

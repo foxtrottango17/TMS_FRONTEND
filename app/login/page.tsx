@@ -113,7 +113,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         <Card className="border-none shadow-lg">
           <CardHeader className="space-y-2 text-center">
-            <CardTitle className="text-2xl font-bold">FleetMaster</CardTitle>
+            <CardTitle className="text-2xl font-bold">Fleet Master</CardTitle>
             <CardDescription>Enter your credentials to access your account</CardDescription>
           </CardHeader>
           <form onSubmit={handleSubmit}>
@@ -158,20 +158,20 @@ export default function LoginPage() {
                   </Button>
                 </div>
               </div>
-              <div className="flex items-center space-x-2">
+              {/* <div className="flex items-center space-x-2">
                 <Checkbox id="remember" checked={rememberMe} onCheckedChange={(checked) => setRememberMe(!!checked)} />
-              </div>
+              </div> */}
             </CardContent>
             <CardFooter className="flex flex-col space-y-4">
               <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? "Signing in..." : "Sign in"}
               </Button>
-              <div className="text-center text-sm text-muted-foreground">
+              {/* <div className="text-center text-sm text-muted-foreground">
                 Don't have an account?{" "}
                 <Link href="#" className="text-primary underline-offset-4 hover:underline">
                   Contact administrator
                 </Link>
-              </div>
+              </div> */}
             </CardFooter>
           </form>
         </Card>
