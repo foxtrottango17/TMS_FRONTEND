@@ -1,12 +1,12 @@
 'use client';
 
-import HeadUnitTable from './controller';
+import DataTable from './controller';
 
-export default function HeadUnitPage() {
+export default function Page() {
   return (
 
     <main className="w-full h-[calc(100vh-4rem)] py-0 px-0">
-      <HeadUnitTable />
+      <DataTable />
     </main>
   );
 }
