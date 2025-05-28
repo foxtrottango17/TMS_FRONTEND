@@ -368,11 +368,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                           asChild
                           className={cn(
                             "w-full justify-start",
-                            isActive("/dashboard/route/routes") && "bg-accent text-accent-foreground",
+                            isActive("/dashboard/route/route") && "bg-accent text-accent-foreground",
                           )}
                         >
-                          <Link href="/dashboard/route/routes">
-                            Routes
+                          <Link href="/dashboard/route/route">
+                            Route
                           </Link>
                         </Button>
                       </div>
