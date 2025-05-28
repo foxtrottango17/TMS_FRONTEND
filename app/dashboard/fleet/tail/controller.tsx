@@ -64,9 +64,11 @@ export const DataTable = () => {
   const { columns, url, method, initSort } = useTable();
 
   return (
-    <div className="p-0 h-full flex flex-col">
-      <h2 className="text-lg font-semibold px-2 pt-1">Tail Units</h2>
-      <div className="flex-1 min-h-0">
+    <div className="h-full flex flex-col bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden">
+      <div className="px-4 py-2 border-b-0 bg-muted/50">
+        <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200 m-0">Tail Units</h2>
+      </div>
+      <div className="flex-1 min-h-0 [&_.tabulator-header]:border-t-0">
         <TabulatorTable
           id="tail-table"
           columns={columns}

@@ -1,3 +1,7 @@
+.tabulator {
+  margin: 0 !important;
+}
+
 /*
  * Dark Theme for ReactTabulator
  * Matches the application's dark theme using CSS variables
