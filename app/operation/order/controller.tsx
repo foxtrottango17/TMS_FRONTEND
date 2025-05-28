@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 import { ColumnDefinition } from 'react-tabulator';
 import TabulatorTable from '@/components/tabulator';
 import { API_BASE_URL } from '@/lib/constants';
@@ -13,12 +14,26 @@ interface TableConfig {
 }
 
 function useTable(): TableConfig {
+  const router = useRouter();
+
   const columns: ColumnDefinition[] = useMemo(() => [
     { 
       title: 'Order ID', 
-      field: 'order_id', 
+      field: 'order_id',
       headerSort: true,
       headerFilter: 'input',
+      formatter: (cell) => {
+        const value = cell.getValue();
+        const elem = document.createElement('a');
+        elem.href = '#';
+        elem.className = 'text-blue-600 hover:text-blue-800 hover:underline';
+        elem.textContent = value;
+        elem.onclick = (e) => {
+          e.preventDefault();
+          router.push(`/operation/order/${value}`);
+        };
+        return elem;
+      },
     },
     { 
       title: 'Date', 
