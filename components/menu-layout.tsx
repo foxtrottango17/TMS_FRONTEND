@@ -119,31 +119,31 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   // Fix hydration mismatch with theme
   if (!mounted) {
-    return <div className="min-h-screen bg-background"></div>
+    return <div className="h-screen w-screen bg-background"></div>
   }
 
   return (
-    <div className="flex min-h-screen bg-background">
+    <div className="flex h-screen w-screen bg-background overflow-hidden">
       {/* Sidebar - Desktop Collapsible Version */}
       {!isMobile && (
         <aside
           className={cn(
-            "group/sidebar relative h-screen border-r bg-background transition-all duration-300 ease-in-out",
+            "group/sidebar relative h-full border-r bg-background transition-all duration-300 ease-in-out flex-shrink-0",
             isCollapsed ? "w-[60px]" : "w-[240px]",
           )}
         >
           {/* Sidebar Header */}
-          <div className="flex h-16 items-center border-b px-4">
+          <div className="flex h-16 items-center border-b px-4 flex-shrink-0">
             <div className={cn("flex items-center", isCollapsed && "justify-center w-full")}>
               <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
                 {/* <Truck className="h-5 w-5" /> */}
               </div>
-              {!isCollapsed && <span className="ml-2 text-lg font-semibold">FleetMaster</span>}
+              {!isCollapsed && <span className="ml-2 text-lg font-semibold">Fleet Master</span>}
             </div>
           </div>
 
           {/* Sidebar Content */}
-          <div className="h-[calc(100vh-64px)] overflow-y-auto">
+          <div className="h-[calc(100%-64px)] overflow-y-auto">
             <div className="p-4">
               {/* Dashboard Link */}
               <Button
@@ -704,9 +704,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       )}
 
       {/* Main Content */}
-      <div className="flex flex-1 flex-col">
+      <div className="flex flex-col flex-1 min-w-0 h-full">
         {/* Header */}
-        <header className="sticky top-0 z-40 flex h-16 items-center border-b bg-background px-4 md:px-6">
+        <header className="flex h-16 items-center border-b bg-background px-4 md:px-6 flex-shrink-0">
           {isMobile ? (
             <Button variant="ghost" size="icon" className="mr-2" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
               <Menu className="h-5 w-5" />
@@ -775,8 +775,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </header>
 
         {/* Page Content */}
-        <main className="flex-1">
-          <div className="flex-1 space-y-2 p-2">{children}</div>
+        <main className="flex-1 h-[calc(100%-64px)] overflow-hidden">
+          <div className="h-full p-2">{children}</div>
         </main>
       </div>
     </div>
