@@ -111,19 +111,25 @@ export default function TabulatorTable({
 
   // Memoize columns to prevent unnecessary re-renders of the table
   const memoizedColumns = React.useMemo(() => {
-    return columns.map((col) => {
+    console.log('Original columns:', columns);
+    const processedColumns = columns.map((col) => {
       // If width is not explicitly set, don't include it to let Tabulator auto-calculate
       const { width, ...restCol } = col;
-      return {
+      const processedCol = {
         ...restCol,
         minWidth: Math.max(100, (col.title?.length || 0) * 10 || 100), // Ensure minWidth is at least 100
         // Only include width if it's explicitly set and not a boolean
         ...(width && typeof width !== 'boolean' ? { width } : {})
       };
+      console.log(`Processed column ${col.field || 'unknown'}:`, processedCol);
+      return processedCol;
     });
+    console.log('All processed columns:', processedColumns);
+    return processedColumns;
   }, [columns]);
 
-  // Define Tabulator options using useMemo for performance
+// Update your TabulatorTable options to enable scrolling instead of hiding columns
+
   const options = React.useMemo(() => ({
     height,
     data: null, // Data will be loaded remotely by ajaxRequestFunc
@@ -139,10 +145,15 @@ export default function TabulatorTable({
     headerSortTristate: true,
     initialSort: initSort,
 
-    layout: 'fitDataTable',
-    responsiveLayout: 'hide',
-    responsiveLayoutCollapseStartOpen: false,
+    // THESE ARE THE KEY CHANGES FOR SCROLLING:
+    layout: 'fitDataTable', // Changed from 'fitDataTable' to 'fitColumns'
+    responsiveLayout: false, // Disable responsive layout completely - this was hiding your columns!
+    // Remove responsiveLayoutCollapseStartOpen since we're disabling responsive layout
     resizableColumnFit: false,
+    
+    // Enable horizontal scrolling
+    scrollHorizontal: true, // This enables horizontal scrolling
+    columnHeaderVertAlign: 'middle',
 
     pagination: true,
     paginationMode: 'remote', // Pagination handled by the backend
@@ -151,81 +162,67 @@ export default function TabulatorTable({
     paginationInitialPage: 1,
     paginationCounter: 'rows',
 
-    ajaxURL: url, // Tabulator still needs a base URL, but Axios will handle the full path
+    ajaxURL: url,
     ajaxConfig: {
       method,
-      // Axios interceptors handle headers like Authorization, so no need to set them here.
-      // However, 'Content-Type' is good to keep if your backend expects it for all requests.
       headers: {
         'Content-Type': 'application/json',
       },
-      // Axios handles credentials by default if `withCredentials` is true on the instance,
-      // or if your backend is on the same origin.
     },
 
-    // This is where we integrate Axios
+    // ... rest of your existing configuration (ajaxRequestFunc, ajaxResponse, etc.)
     ajaxRequestFunc: (async (
-      tabulatorUrl: string, // This is the URL provided by Tabulator (e.g., '/my-data-endpoint')
-      tabulatorConfig: RequestInit, // The config Tabulator built (method, headers, etc.)
-      params: Record<string, any> // Tabulator's pagination, sort, filter parameters
+      tabulatorUrl: string,
+      tabulatorConfig: RequestInit,
+      params: Record<string, any>
     ) => {
-
       console.log('Tabulator requesting:', tabulatorUrl, 'with params:', params);
       console.log('Tabulator config:', tabulatorConfig);
 
       try {
         let axiosResponse;
         if (method === 'GET') {
-          // For GET requests, params go into `params` property of Axios config
           axiosResponse = await api.get<AjaxResponse>(tabulatorUrl, { params });
         } else {
-          // For POST/other requests, params go into the request body
           axiosResponse = await api.post<AjaxResponse>(tabulatorUrl, params);
         }
 
         console.log('Axios response data:', axiosResponse.data);
-        return axiosResponse.data; // Return the data directly, Axios interceptors handled the rest
+        return axiosResponse.data;
       } catch (error) {
         console.error('Error in Tabulator ajaxRequestFunc (via Axios):', error);
-        // Axios interceptors should handle 401 and redirect,
-        // but if other errors occur, re-throw to allow Tabulator to show its error UI.
         throw error;
       }
-    }) as unknown as AjaxRequestFunction, // Cast to the correct type for Tabulator
+    }) as unknown as AjaxRequestFunction,
 
     dataSendParams: {
-      // These map Tabulator's internal parameter names to what your backend expects
-      page: 'page', // Tabulator's 'page' param will be sent as 'page' to backend
-      size: 'pageSize', // Tabulator's 'size' param will be sent as 'pageSize' to backend
-      sort: 'sort', // Tabulator's 'sort' array will be sent as 'sort'
-      filter: 'filter', // Tabulator's 'filter' array will be sent as 'filter'
-      // Add other mappings if your backend uses different names (e.g., 'pageNumber', 'limit')
+      page: 'page',
+      size: 'pageSize',
+      sort: 'sort',
+      filter: 'filter',
     },
 
-    // This function transforms the backend response into a format Tabulator understands
     ajaxResponse: ((
       url: string,
       params: Record<string, any>,
-      response: any // This is the `axiosResponse.data` from the ajaxRequestFunc
+      response: any
     ) => {
       console.log('Processing API response:', response);
       
-      // Check if response has 'data' field (your API format)
       if (response && Array.isArray(response.data)) {
         return {
-          data: response.data, // The actual array of data rows
-          last_page: response.last_page || Math.ceil((response.total_count || response.data.length) / 100), // Calculate pages
-          total: response.total_count || response.data.length, // Use total_count from your API or fallback to array length
+          data: response.data,
+          last_page: response.last_page || Math.ceil((response.total_count || response.data.length) / 100),
+          total: response.total_count || response.data.length,
         };
       }
       
-      // Fallback to the original format if 'data' field is not present
       return {
-        data: response.result || [], // Fallback to result array if exists
-        last_page: response.last_page || 1, // The total number of pages
-        total: response.total || (Array.isArray(response.result) ? response.result.length : 0), // The total number of rows
+        data: response.result || [],
+        last_page: response.last_page || 1,
+        total: response.total || (Array.isArray(response.result) ? response.result.length : 0),
       };
-    }) as AjaxResponseFunction, // Cast to the correct type for Tabulator
+    }) as AjaxResponseFunction,
 
     editTriggerEvent: 'dblclick',
 
@@ -243,7 +240,7 @@ export default function TabulatorTable({
       const data = row.getData() as { deleted?: boolean };
       if (data.deleted) {
         const el = row.getElement();
-        el.style.backgroundColor = isDarkTheme ? '#5a2d31' : '#f8d7da'; // Adjust deleted row color based on theme
+        el.style.backgroundColor = isDarkTheme ? '#5a2d31' : '#f8d7da';
         el.style.textDecoration = 'line-through';
       }
     },
@@ -255,7 +252,7 @@ export default function TabulatorTable({
       resizable: 'header',
       minWidth: 100,
     },
-  }), [height, url, method, initSort, memoizedColumns, isDarkTheme]); // Added isDarkTheme to dependencies
+  }), [height, url, method, initSort, memoizedColumns, isDarkTheme]);
 
   // Handle window resize and sidebar toggle
   useEffect(() => {
