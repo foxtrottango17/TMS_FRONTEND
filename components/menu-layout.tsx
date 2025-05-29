@@ -455,10 +455,10 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                           asChild
                           className={cn(
                             "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
-                            isActive("/master-data/configs/pricing") && "bg-accent text-accent-foreground"
+                            isActive("/master-data/configs/pricing_config") && "bg-accent text-accent-foreground"
                           )}
                         >
-                          <Link href="/master-data/configs/pricing">
+                          <Link href="/master-data/configs/pricing_config">
                             <span className="text-[11px]">Pricing</span>
                           </Link>
                         </Button>
