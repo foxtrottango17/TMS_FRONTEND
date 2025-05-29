@@ -19,6 +19,10 @@ import {
   Bell,
   Search,
   Menu,
+  FileText,
+  CreditCard,
+  DollarSign,
+  BarChart2,
   Moon,
   Sun,
   ChevronRight,
@@ -88,6 +92,15 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
     order: false,
     runsheet: false,
     trip: false,
+    dispatch: false,
+    tripHistory: false,
+    payments: false,
+    expenses: false,
+    financialReports: false,
+    operationsReports: false,
+    invoice: false,
+    profitLoss: false,
+    customers: false
   })
 
   // Toggle submenu
@@ -189,10 +202,10 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
               <Separator className="my-4" />
 
               {/* Master Section */}
-              <div className="pb-4">
+              <div className="pb-2">
                 <h2
                   className={cn(
-                    "mb-1 px-3 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground",
+                    "mb-2 px-4 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground",
                     isCollapsed && "sr-only",
                   )}
                 >
@@ -461,10 +474,10 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
 
               <Separator className="my-4" />
               {/* Operations Section */}
-              <div className="pb-4">
+              <div className="pb-2">
                 <h2
                   className={cn(
-                    "mb-2 px-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground",
+                    "mb-2 px-4 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground",
                     isCollapsed && "sr-only",
                   )}
                 >
@@ -502,10 +515,23 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                           asChild
                           className={cn(
                             "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
-                            isActive("/operation/order") && "bg-accent text-accent-foreground"
+                            isActive("/operations/order/quotes") && "bg-accent text-accent-foreground"
                           )}
                         >
-                          <Link href="/operation/order">
+                          <Link href="/operations/order/quotes">
+                            <span className="text-[11px]">Quotes</span>
+                          </Link>
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          asChild
+                          className={cn(
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
+                            isActive("/operations/order/orders") && "bg-accent text-accent-foreground"
+                          )}
+                        >
+                          <Link href="/operations/order/orders">
                             <span className="text-[11px]">Orders</span>
                           </Link>
                         </Button>
@@ -513,29 +539,29 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                     )}
                   </div>
 
-                  {/* Runsheet */}
+                  {/* Dispatch */}
                   <div>
                     <Button
                       variant="ghost"
                       size="sm"
                       className={cn(
                         "w-full justify-start",
-                        openSubmenus.runsheet && "bg-accent text-accent-foreground",
+                        openSubmenus.dispatch && "bg-accent text-accent-foreground",
                         isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0",
                       )}
-                      onClick={() => toggleSubmenu("runsheet")}
+                      onClick={() => toggleSubmenu("dispatch")}
                     >
-                      <ClipboardList className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
+                      <Truck className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
                       {!isCollapsed && (
                         <>
-                          <span className="flex-1 text-left text-[11px]">Runsheet</span>
+                          <span className="flex-1 text-left text-[11px]">Dispatch</span>
                           <ChevronRight
-                            className={cn("h-4 w-4 transition-transform", openSubmenus.runsheet && "rotate-90")}
+                            className={cn("h-4 w-4 transition-transform", openSubmenus.dispatch && "rotate-90")}
                           />
                         </>
                       )}
                     </Button>
-                    {openSubmenus.runsheet && !isCollapsed && (
+                    {openSubmenus.dispatch && !isCollapsed && (
                       <div className="ml-4 border-l pl-2 py-1 space-y-0.5">
                         <Button
                           variant="ghost"
@@ -543,11 +569,78 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                           asChild
                           className={cn(
                             "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
-                            isActive("/operation/runsheet") && "bg-accent text-accent-foreground"
+                            isActive("/operations/dispatch/pending") && "bg-accent text-accent-foreground"
                           )}
                         >
-                          <Link href="/operation/runsheet">
-                            <span className="text-[11px]">Runsheets</span>
+                          <Link href="/operations/dispatch/pending">
+                            <span className="text-[11px]">Plan</span>
+                          </Link>
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          asChild
+                          className={cn(
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
+                            isActive("/operations/dispatch/final") && "bg-accent text-accent-foreground"
+                          )}
+                        >
+                          <Link href="/operations/dispatch/final">
+                            <span className="text-[11px]">Final</span>
+                          </Link>
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          asChild
+                          className={cn(
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
+                            isActive("/operations/dispatch/tracking") && "bg-accent text-accent-foreground"
+                          )}
+                        >
+                          <Link href="/operations/dispatch/tracking">
+                            <span className="text-[11px]">Tracking</span>
+                          </Link>
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Trip History */}
+                  <div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className={cn(
+                        "w-full justify-start",
+                        openSubmenus.tripHistory && "bg-accent text-accent-foreground",
+                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0",
+                      )}
+                      onClick={() => toggleSubmenu("tripHistory")}
+                    >
+                      <History className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
+                      {!isCollapsed && (
+                        <>
+                          <span className="flex-1 text-left text-[11px]">Trip History</span>
+                          <ChevronRight
+                            className={cn("h-4 w-4 transition-transform", openSubmenus.tripHistory && "rotate-90")}
+                          />
+                        </>
+                      )}
+                    </Button>
+                    {openSubmenus.tripHistory && !isCollapsed && (
+                      <div className="ml-4 border-l pl-2 py-1 space-y-0.5">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          asChild
+                          className={cn(
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
+                            isActive("/operations/trip-history") && "bg-accent text-accent-foreground"
+                          )}
+                        >
+                          <Link href="/operations/trip-history">
+                            <span className="text-[11px]">Trip Logs</span>
                           </Link>
                         </Button>
                       </div>
@@ -558,41 +651,41 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
 
               <Separator className="my-4" />
 
-              {/* Transactions Section */}
-              <div className="pb-4">
+              {/* Finance Section */}
+              <div className="pb-2">
                 <h2
                   className={cn(
-                    "mb-2 px-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground",
+                    "mb-2 px-4 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground",
                     isCollapsed && "sr-only",
                   )}
                 >
-                  Transactions
+                  Finance
                 </h2>
 
                 <div className="space-y-1">
-                  {/* Trip */}
+                  {/* Invoice */}
                   <div>
                     <Button
                       variant="ghost"
                       size="sm"
                       className={cn(
                         "w-full justify-start",
-                        openSubmenus.trip && "bg-accent text-accent-foreground",
-                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0",
+                        openSubmenus.invoice && "bg-accent text-accent-foreground",
+                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0"
                       )}
-                      onClick={() => toggleSubmenu("trip")}
+                      onClick={() => toggleSubmenu("invoice")}
                     >
-                      <History className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
+                      <FileText className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
                       {!isCollapsed && (
                         <>
-                          <span className="flex-1 text-left text-[11px]">Trip</span>
+                          <span className="flex-1 text-left text-[11px]">Invoice</span>
                           <ChevronRight
-                            className={cn("h-4 w-4 transition-transform", openSubmenus.trip && "rotate-90")}
+                            className={cn("h-4 w-4 transition-transform", openSubmenus.invoice && "rotate-90")}
                           />
                         </>
                       )}
                     </Button>
-                    {openSubmenus.trip && !isCollapsed && (
+                    {openSubmenus.invoice && !isCollapsed && (
                       <div className="ml-4 border-l pl-2 py-1 space-y-0.5">
                         <Button
                           variant="ghost"
@@ -600,11 +693,445 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                           asChild
                           className={cn(
                             "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
-                            isActive("/transactions/trips") && "bg-accent text-accent-foreground"
+                            isActive("/finance/invoice/invoice") && "bg-accent text-accent-foreground"
                           )}
                         >
-                          <Link href="/transactions/trips">
-                            <span className="text-[11px]">Trip History</span>
+                          <Link href="/finance/invoice/invoice">
+                            <span className="text-[11px]">Invoice List</span>
+                          </Link>
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Payments */}
+                  <div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className={cn(
+                        "w-full justify-start",
+                        openSubmenus.payments && "bg-accent text-accent-foreground",
+                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0",
+                      )}
+                      onClick={() => toggleSubmenu("payments")}
+                    >
+                      <CreditCard className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
+                      {!isCollapsed && (
+                        <>
+                          <span className="flex-1 text-left text-[11px]">Payments</span>
+                          <ChevronRight
+                            className={cn("h-4 w-4 transition-transform", openSubmenus.payments && "rotate-90")}
+                          />
+                        </>
+                      )}
+                    </Button>
+                    {openSubmenus.payments && !isCollapsed && (
+                      <div className="ml-4 border-l pl-2 py-1 space-y-0.5">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          asChild
+                          className={cn(
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
+                            isActive("/finance/payments/received") && "bg-accent text-accent-foreground"
+                          )}
+                        >
+                          <Link href="/finance/payments/received">
+                            <span className="text-[11px]">Received Payments</span>
+                          </Link>
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Expenses */}
+                  <div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className={cn(
+                        "w-full justify-start",
+                        openSubmenus.expenses && "bg-accent text-accent-foreground",
+                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0",
+                      )}
+                      onClick={() => toggleSubmenu("expenses")}
+                    >
+                      <DollarSign className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
+                      {!isCollapsed && (
+                        <>
+                          <span className="flex-1 text-left text-[11px]">Expenses</span>
+                          <ChevronRight
+                            className={cn("h-4 w-4 transition-transform", openSubmenus.expenses && "rotate-90")}
+                          />
+                        </>
+                      )}
+                    </Button>
+                    {openSubmenus.expenses && !isCollapsed && (
+                      <div className="ml-4 border-l pl-2 py-1 space-y-0.5">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          asChild
+                          className={cn(
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
+                            isActive("/finance/expenses/all") && "bg-accent text-accent-foreground"
+                          )}
+                        >
+                          <Link href="/finance/expenses/all">
+                            <span className="text-[11px]">All</span>
+                          </Link>
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          asChild
+                          className={cn(
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
+                            isActive("/finance/expenses/fuel") && "bg-accent text-accent-foreground"
+                          )}
+                        >
+                          <Link href="/finance/expenses/fuel">
+                            <span className="text-[11px]">Fuel Expenses</span>
+                          </Link>
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          asChild
+                          className={cn(
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
+                            isActive("/finance/expenses/driver") && "bg-accent text-accent-foreground"
+                          )}
+                        >
+                          <Link href="/finance/expenses/driver">
+                            <span className="text-[11px]">Driver Payments</span>
+                          </Link>
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          asChild
+                          className={cn(
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
+                            isActive("/finance/expenses/maintenance") && "bg-accent text-accent-foreground"
+                          )}
+                        >
+                          <Link href="/finance/expenses/maintenance">
+                            <span className="text-[11px]">Maintenance Costs</span>
+                          </Link>
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          asChild
+                          className={cn(
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
+                            isActive("/finance/expenses/toll") && "bg-accent text-accent-foreground"
+                          )}
+                        >
+                          <Link href="/finance/expenses/toll">
+                            <span className="text-[11px]">Tolls & Parking</span>
+                          </Link>
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          asChild
+                          className={cn(
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
+                            isActive("/finance/expenses/misc") && "bg-accent text-accent-foreground"
+                          )}
+                        >
+                          <Link href="/finance/expenses/misc">
+                            <span className="text-[11px]">Miscellaneous</span>
+                          </Link>
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Profit & Loss */}
+                  <div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className={cn(
+                        "w-full justify-start",
+                        openSubmenus.profitLoss && "bg-accent text-accent-foreground",
+                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0"
+                      )}
+                      onClick={() => toggleSubmenu("profitLoss")}
+                    >
+                      <BarChart2 className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
+                      {!isCollapsed && (
+                        <>
+                          <span className="flex-1 text-left text-[11px]">Profit & Loss</span>
+                          <ChevronRight
+                            className={cn("h-4 w-4 transition-transform", openSubmenus.profitLoss && "rotate-90")}
+                          />
+                        </>
+                      )}
+                    </Button>
+                    {openSubmenus.profitLoss && !isCollapsed && (
+                      <div className="ml-4 border-l pl-2 py-1 space-y-0.5">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          asChild
+                          className={cn(
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
+                            isActive("/finance/profit-loss") && "bg-accent text-accent-foreground"
+                          )}
+                        >
+                          <Link href="/finance/profit-loss">
+                            <span className="text-[11px]">Profit & Loss Report</span>
+                          </Link>
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <Separator className="my-4" />
+
+              {/* Reports Section */}
+              <div className="pb-2">
+                <h2
+                  className={cn(
+                    "mb-2 px-4 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground",
+                    isCollapsed && "sr-only",
+                  )}
+                >
+                  Reports
+                </h2>
+
+                <div className="space-y-1">
+                  {/* Financials */}
+                  <div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className={cn(
+                        "w-full justify-start",
+                        openSubmenus.financialReports && "bg-accent text-accent-foreground",
+                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0"
+                      )}
+                      onClick={() => toggleSubmenu("financialReports")}
+                    >
+                      <BarChart2 className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
+                      {!isCollapsed && (
+                        <>
+                          <span className="flex-1 text-left text-[11px]">Financials</span>
+                          <ChevronRight
+                            className={cn("h-4 w-4 transition-transform", openSubmenus.financialReports && "rotate-90")}
+                          />
+                        </>
+                      )}
+                    </Button>
+                    {openSubmenus.financialReports && !isCollapsed && (
+                      <div className="ml-4 border-l pl-2 py-1 space-y-0.5">
+                        {/* Revenue Report */}
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          asChild
+                          className={cn(
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
+                            isActive("/reports/financial/revenue") && "bg-accent text-accent-foreground"
+                          )}
+                        >
+                          <Link href="/reports/financial/revenue">
+                            <span className="text-[11px]">Revenue Report</span>
+                          </Link>
+                        </Button>
+                        
+                        {/* Expense Analysis */}
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          asChild
+                          className={cn(
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
+                            isActive("/reports/financial/expenses") && "bg-accent text-accent-foreground"
+                          )}
+                        >
+                          <Link href="/reports/financial/expenses">
+                            <span className="text-[11px]">Expense Analysis</span>
+                          </Link>
+                        </Button>
+                        
+                        {/* Profit & Loss Overview */}
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          asChild
+                          className={cn(
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
+                            isActive("/reports/financial/profit-loss") && "bg-accent text-accent-foreground"
+                          )}
+                        >
+                          <Link href="/reports/financial/profit-loss">
+                            <span className="text-[11px]">Profit & Loss Overview</span>
+                          </Link>
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Operations */}
+                  <div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className={cn(
+                        "w-full justify-start",
+                        openSubmenus.operationsReports && "bg-accent text-accent-foreground",
+                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0"
+                      )}
+                      onClick={() => toggleSubmenu("operationsReports")}
+                    >
+                      <ClipboardList className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
+                      {!isCollapsed && (
+                        <>
+                          <span className="flex-1 text-left text-[11px]">Operations</span>
+                          <ChevronRight
+                            className={cn("h-4 w-4 transition-transform", openSubmenus.operationsReports && "rotate-90")}
+                          />
+                        </>
+                      )}
+                    </Button>
+                    {openSubmenus.operationsReports && !isCollapsed && (
+                      <div className="ml-4 border-l pl-2 py-1 space-y-0.5">
+                        {/* Order Summary */}
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          asChild
+                          className={cn(
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
+                            isActive("/reports/operations/orders") && "bg-accent text-accent-foreground"
+                          )}
+                        >
+                          <Link href="/reports/operations/orders">
+                            <span className="text-[11px]">Order Summary</span>
+                          </Link>
+                        </Button>
+                        
+                        {/* Quote Conversion Rate */}
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          asChild
+                          className={cn(
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
+                            isActive("/reports/operations/quotes") && "bg-accent text-accent-foreground"
+                          )}
+                        >
+                          <Link href="/reports/operations/quotes">
+                            <span className="text-[11px]">Quote Conversion Rate</span>
+                          </Link>
+                        </Button>
+                        
+                        {/* Dispatch Efficiency */}
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          asChild
+                          className={cn(
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
+                            isActive("/reports/operations/dispatch") && "bg-accent text-accent-foreground"
+                          )}
+                        >
+                          <Link href="/reports/operations/dispatch">
+                            <span className="text-[11px]">Dispatch Efficiency</span>
+                          </Link>
+                        </Button>
+                        
+                        {/* Fleet Utilization */}
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          asChild
+                          className={cn(
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
+                            isActive("/reports/operations/fleet") && "bg-accent text-accent-foreground"
+                          )}
+                        >
+                          <Link href="/reports/operations/fleet">
+                            <span className="text-[11px]">Fleet Utilization</span>
+                          </Link>
+                        </Button>
+                        
+                        {/* Driver Performance */}
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          asChild
+                          className={cn(
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
+                            isActive("/reports/operations/drivers") && "bg-accent text-accent-foreground"
+                          )}
+                        >
+                          <Link href="/reports/operations/drivers">
+                            <span className="text-[11px]">Driver Performance</span>
+                          </Link>
+                        </Button>
+                        
+                        {/* Route Performance */}
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          asChild
+                          className={cn(
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
+                            isActive("/reports/operations/routes") && "bg-accent text-accent-foreground"
+                          )}
+                        >
+                          <Link href="/reports/operations/routes">
+                            <span className="text-[11px]">Route Performance</span>
+                          </Link>
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Customers */}
+                  <div>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className={cn(
+                        "w-full justify-start",
+                        openSubmenus.customers && "bg-accent text-accent-foreground",
+                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0"
+                      )}
+                      onClick={() => toggleSubmenu("customers")}
+                    >
+                      <Users className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
+                      {!isCollapsed && (
+                        <>
+                          <span className="flex-1 text-left text-[11px]">Customers</span>
+                          <ChevronRight
+                            className={cn("h-4 w-4 transition-transform", openSubmenus.customers && "rotate-90")}
+                          />
+                        </>
+                      )}
+                    </Button>
+                    {openSubmenus.customers && !isCollapsed && (
+                      <div className="ml-4 border-l pl-2 py-1 space-y-0.5">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          asChild
+                          className={cn(
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
+                            isActive("/reports/customers") && "bg-accent text-accent-foreground"
+                          )}
+                        >
+                          <Link href="/reports/customers">
+                            <span className="text-[11px]">Customer Analysis</span>
                           </Link>
                         </Button>
                       </div>
