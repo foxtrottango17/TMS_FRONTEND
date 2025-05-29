@@ -28,6 +28,12 @@ import {
   ChevronRight,
   Settings,
   LogOut,
+  Car,
+  Map,
+  LineChart,
+  PieChart,
+  Users2,
+  FileBarChart2
 } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/hooks/use-auth"
@@ -83,7 +89,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
 
   // Track open state of submenus
-  const [openSubmenus, setOpenSubmenus] = useState<Record<string, boolean>>({
+  const [openSubmenus, setOpenSubmenus] = useState({
     resource: false,
     fleet: false,
     customer: false,
@@ -188,13 +194,13 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                 size="sm"
                 asChild
                 className={cn(
-                  "w-full justify-start text-[11px]",
+                  "w-full justify-start overflow-hidden",
                   isActive("/dashboard", true) && "bg-accent text-accent-foreground",
-                  isCollapsed && "flex h-7 w-7 shrink-0 items-center justify-center p-0",
+                  isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0 mx-auto",
                 )}
               >
                 <Link href="/dashboard">
-                  <Home className={cn("h-3 w-3", isCollapsed ? "mr-0" : "mr-1.5")} />
+                  <Home className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
                   {!isCollapsed && <span className="text-[11px]">Dashboard</span>}
                 </Link>
               </Button>
@@ -333,7 +339,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       )}
                       onClick={() => toggleSubmenu("customer")}
                     >
-                      <Contact className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
+                      <Users2 className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
                       {!isCollapsed && (
                         <>
                           <span className="flex-1 text-left text-[11px]">Customer</span>
@@ -416,15 +422,15 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                     )}
                   </div>
 
-                  {/* Config */}
-                  <div>
+                  {/* Config Section */}
+                  <div className="mt-4">
                     <Button
                       variant="ghost"
                       size="sm"
                       className={cn(
-                        "w-full justify-start",
+                        "w-full justify-start overflow-hidden",
                         openSubmenus.config && "bg-accent text-accent-foreground",
-                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0",
+                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0 mx-auto",
                       )}
                       onClick={() => toggleSubmenu("config")}
                     >
@@ -446,10 +452,10 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                           asChild
                           className={cn(
                             "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
-                            isActive("/master-data/config/pricing") && "bg-accent text-accent-foreground"
+                            isActive("/config/pricing") && "bg-accent text-accent-foreground"
                           )}
                         >
-                          <Link href="/master-data/config/pricing">
+                          <Link href="/config/pricing">
                             <span className="text-[11px]">Pricing</span>
                           </Link>
                         </Button>
@@ -459,10 +465,10 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                           asChild
                           className={cn(
                             "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
-                            isActive("/master-data/config/payment-terms") && "bg-accent text-accent-foreground"
+                            isActive("/config/payment-terms") && "bg-accent text-accent-foreground"
                           )}
                         >
-                          <Link href="/master-data/config/payment-terms">
+                          <Link href="/config/payment-terms">
                             <span className="text-[11px]">Payment Terms</span>
                           </Link>
                         </Button>
@@ -551,7 +557,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       )}
                       onClick={() => toggleSubmenu("dispatch")}
                     >
-                      <Truck className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
+                      <Map className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
                       {!isCollapsed && (
                         <>
                           <span className="flex-1 text-left text-[11px]">Dispatch</span>
@@ -863,7 +869,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       )}
                       onClick={() => toggleSubmenu("profitLoss")}
                     >
-                      <BarChart2 className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
+                      <PieChart className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
                       {!isCollapsed && (
                         <>
                           <span className="flex-1 text-left text-[11px]">Profit & Loss</span>
@@ -1345,21 +1351,33 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
               <DropdownMenuContent align="end" className="w-56">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <Users className="mr-2 h-4 w-4" />
-                  <span>Profile</span>
+                <DropdownMenuItem className={cn("transition-all duration-200 ease-in-out", isCollapsed && "justify-center p-0")}>
+                  <Users className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
+                  {!isCollapsed && <span>Profile</span>}
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Settings className="mr-2 h-4 w-4" />
-                  <span>Settings</span>
+                <DropdownMenuItem asChild className="p-0">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className={cn(
+                      "w-full justify-start overflow-hidden",
+                      isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0 mx-auto"
+                    )}
+                  >
+                    <Settings className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
+                    {!isCollapsed && <span className="text-left text-[11px]">Settings</span>}
+                  </Button>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem 
                   onClick={handleLogout}
-                  className="cursor-pointer text-red-600 focus:bg-red-50 dark:focus:bg-red-900/20"
+                  className={cn(
+                    "cursor-pointer text-red-600 focus:bg-red-50 dark:focus:bg-red-900/20 transition-all duration-200 ease-in-out",
+                    isCollapsed && "justify-center p-0"
+                  )}
                 >
-                  <LogOut className="mr-2 h-4 w-4" />
-                  <span>Log out</span>
+                  <LogOut className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
+                  {!isCollapsed && <span>Log out</span>}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
