@@ -97,7 +97,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
     fleet: false,
     customer: false,
     route: false,
-    config: false,
+    configs: false,
     order: false,
     runsheet: false,
     trip: false,
@@ -425,29 +425,29 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                     )}
                   </div>
 
-                  {/* Config Section */}
+                  {/* configs Section */}
                   <div className="mt-4">
                     <Button
                       variant="ghost"
                       size="sm"
                       className={cn(
                         "w-full justify-start overflow-hidden",
-                        openSubmenus.config && "bg-accent text-accent-foreground",
+                        openSubmenus.configs && "bg-accent text-accent-foreground",
                         isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0 mx-auto",
                       )}
-                      onClick={() => toggleSubmenu("config")}
+                      onClick={() => toggleSubmenu("configs")}
                     >
                       <Settings className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
                       {!isCollapsed && (
                         <>
-                          <span className="flex-1 text-left text-[11px]">Config</span>
+                          <span className="flex-1 text-left text-[11px]">Configs</span>
                           <ChevronRight
-                            className={cn("h-4 w-4 transition-transform", openSubmenus.config && "rotate-90")}
+                            className={cn("h-4 w-4 transition-transform", openSubmenus.configs && "rotate-90")}
                           />
                         </>
                       )}
                     </Button>
-                    {openSubmenus.config && !isCollapsed && (
+                    {openSubmenus.configs && !isCollapsed && (
                       <div className="ml-4 border-l pl-2 py-1 space-y-0.5">
                         <Button
                           variant="ghost"
@@ -455,10 +455,10 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                           asChild
                           className={cn(
                             "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
-                            isActive("/config/pricing") && "bg-accent text-accent-foreground"
+                            isActive("/master-data/configs/pricing") && "bg-accent text-accent-foreground"
                           )}
                         >
-                          <Link href="/config/pricing">
+                          <Link href="/master-data/configs/pricing">
                             <span className="text-[11px]">Pricing</span>
                           </Link>
                         </Button>
@@ -468,10 +468,10 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                           asChild
                           className={cn(
                             "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
-                            isActive("/config/payment-terms") && "bg-accent text-accent-foreground"
+                            isActive("master-data/configs/payment_term") && "bg-accent text-accent-foreground"
                           )}
                         >
-                          <Link href="/config/payment-terms">
+                          <Link href="/master-data/configs/payment_term">
                             <span className="text-[11px]">Payment Terms</span>
                           </Link>
                         </Button>
