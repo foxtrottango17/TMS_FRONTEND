@@ -110,7 +110,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
   })
 
   // Toggle submenu
-  const toggleSubmenu = (key: string) => {
+  const toggleSubmenu = (key: keyof typeof openSubmenus) => {
     setOpenSubmenus((prev) => ({
       ...prev,
       [key]: !prev[key],
