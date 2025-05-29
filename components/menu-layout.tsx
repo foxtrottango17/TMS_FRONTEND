@@ -33,7 +33,10 @@ import {
   LineChart,
   PieChart,
   Users2,
-  FileBarChart2
+  FileBarChart2,
+  UserCog,
+  Shield,
+  ScrollText
 } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/hooks/use-auth"
@@ -231,7 +234,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       )}
                       onClick={() => toggleSubmenu("resource")}
                     >
-                      <Users className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
+                      <User className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
                       {!isCollapsed && (
                         <>
                           <span className="flex-1 text-left text-[11px]">Resource</span>
@@ -339,7 +342,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       )}
                       onClick={() => toggleSubmenu("customer")}
                     >
-                      <Users2 className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
+                      <Contact className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
                       {!isCollapsed && (
                         <>
                           <span className="flex-1 text-left text-[11px]">Customer</span>
@@ -1115,7 +1118,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       )}
                       onClick={() => toggleSubmenu("customers")}
                     >
-                      <Users className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
+                      <Users2 className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
                       {!isCollapsed && (
                         <>
                           <span className="flex-1 text-left text-[11px]">Customers</span>
@@ -1143,6 +1146,73 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       </div>
                     )}
                   </div>
+                </div>
+              </div>
+
+              <Separator className="my-4" />
+
+              {/* Admin Section */}
+              <div className="pb-2">
+                <h2
+                  className={cn(
+                    "mb-2 px-4 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground",
+                    isCollapsed && "sr-only",
+                  )}
+                >
+                  Admin
+                </h2>
+
+                <div className="space-y-1">
+                  {/* Users */}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    asChild
+                    className={cn(
+                      "w-full justify-start overflow-hidden",
+                      isActive("/admin/users") && "bg-accent text-accent-foreground",
+                      isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0 mx-auto",
+                    )}
+                  >
+                    <Link href="/admin/users">
+                      <UserCog className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
+                      {!isCollapsed && <span className="text-[11px]">Users</span>}
+                    </Link>
+                  </Button>
+
+                  {/* Permission */}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    asChild
+                    className={cn(
+                      "w-full justify-start overflow-hidden",
+                      isActive("/admin/permission") && "bg-accent text-accent-foreground",
+                      isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0 mx-auto",
+                    )}
+                  >
+                    <Link href="/admin/permission">
+                      <Shield className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
+                      {!isCollapsed && <span className="text-[11px]">Permission</span>}
+                    </Link>
+                  </Button>
+                  
+                  {/* Audit Log */}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    asChild
+                    className={cn(
+                      "w-full justify-start overflow-hidden",
+                      isActive("/admin/audit-log") && "bg-accent text-accent-foreground",
+                      isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0 mx-auto",
+                    )}
+                  >
+                    <Link href="/admin/audit-log">
+                      <ScrollText className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
+                      {!isCollapsed && <span className="text-[11px]">Audit Log</span>}
+                    </Link>
+                  </Button>
                 </div>
               </div>
             </div>
