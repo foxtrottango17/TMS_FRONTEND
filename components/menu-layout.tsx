@@ -43,7 +43,19 @@ import {
 
 export default function MenuLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter()
-  const { setIsAuthenticated } = useAuth()
+  const { isAuthenticated, setIsAuthenticated } = useAuth()
+  const [isLoading, setIsLoading] = useState(true)
+  
+  // Check authentication status on component mount
+  useEffect(() => {
+    const token = localStorage.getItem('access_token')
+    if (!token) {
+      router.push('/login')
+    } else {
+      setIsAuthenticated(true)
+    }
+    setIsLoading(false)
+  }, [router, setIsAuthenticated])
   
   const handleLogout = () => {
     // Clear all authentication related data
@@ -121,8 +133,14 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
   }, [])
 
   // Fix hydration mismatch with theme
-  if (!mounted) {
+  if (!mounted || isLoading) {
     return <div className="h-screen w-screen bg-background"></div>
+  }
+  
+  // Only render the layout if authenticated
+  if (!isAuthenticated) {
+    // If not authenticated, just render the children (login page) without the layout
+    return <>{children}</>
   }
 
   return (
