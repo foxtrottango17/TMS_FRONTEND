@@ -468,7 +468,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                           asChild
                           className={cn(
                             "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
-                            isActive("master-data/configs/payment_term") && "bg-accent text-accent-foreground"
+                            isActive("/master-data/configs/payment_term") && "bg-accent text-accent-foreground"
                           )}
                         >
                           <Link href="/master-data/configs/payment_term">
