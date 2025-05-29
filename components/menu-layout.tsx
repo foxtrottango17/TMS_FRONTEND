@@ -153,16 +153,16 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
         <aside
           className={cn(
             "group/sidebar relative h-full border-r bg-background transition-all duration-300 ease-in-out flex-shrink-0",
-            isCollapsed ? "w-[60px]" : "w-[240px]",
+            isCollapsed ? "w-[56px]" : "w-[200px]",
           )}
         >
           {/* Sidebar Header */}
-          <div className="flex h-16 items-center border-b px-4 flex-shrink-0">
+          <div className="flex h-14 items-center border-b px-3 flex-shrink-0">
             <div className={cn("flex items-center", isCollapsed && "justify-center w-full")}>
               <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
                 {/* <Truck className="h-5 w-5" /> */}
               </div>
-              {!isCollapsed && <span className="ml-2 text-lg font-semibold">Fleet Master</span>}
+              {!isCollapsed && <span className="ml-2 text-xs font-semibold">Fleet Master</span>}
             </div>
           </div>
 
@@ -175,14 +175,14 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                 size="sm"
                 asChild
                 className={cn(
-                  "w-full justify-start",
+                  "w-full justify-start text-[11px]",
                   isActive("/dashboard", true) && "bg-accent text-accent-foreground",
-                  isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0",
+                  isCollapsed && "flex h-7 w-7 shrink-0 items-center justify-center p-0",
                 )}
               >
                 <Link href="/dashboard">
-                  <Home className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
-                  {!isCollapsed && <span>Dashboard</span>}
+                  <Home className={cn("h-3 w-3", isCollapsed ? "mr-0" : "mr-1.5")} />
+                  {!isCollapsed && <span className="text-[11px]">Dashboard</span>}
                 </Link>
               </Button>
 
@@ -192,7 +192,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
               <div className="pb-4">
                 <h2
                   className={cn(
-                    "mb-2 px-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground",
+                    "mb-1 px-3 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground",
                     isCollapsed && "sr-only",
                   )}
                 >
@@ -215,7 +215,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       <Users className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
                       {!isCollapsed && (
                         <>
-                          <span className="flex-1 text-left">Resource</span>
+                          <span className="flex-1 text-left text-[11px]">Resource</span>
                           <ChevronRight
                             className={cn("h-4 w-4 transition-transform", openSubmenus.resource && "rotate-90")}
                           />
@@ -223,18 +223,18 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       )}
                     </Button>
                     {openSubmenus.resource && !isCollapsed && (
-                      <div className="ml-4 border-l pl-2 pt-1">
+                      <div className="ml-4 border-l pl-2 py-1 space-y-0.5">
                         <Button
                           variant="ghost"
                           size="sm"
                           asChild
                           className={cn(
-                            "w-full justify-start pl-8 text-sm",
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
                             isActive("/master-data/resource/driver") && "bg-accent text-accent-foreground"
                           )}
                         >
                           <Link href="/master-data/resource/driver">
-                            <span>Driver</span>
+                            <span className="text-[11px]">Driver</span>
                           </Link>
                         </Button>
                       </div>
@@ -256,7 +256,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       <Truck className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
                       {!isCollapsed && (
                         <>
-                          <span className="flex-1 text-left">Fleet</span>
+                          <span className="flex-1 text-left text-[11px]">Fleet</span>
                           <ChevronRight
                             className={cn("h-4 w-4 transition-transform", openSubmenus.fleet && "rotate-90")}
                           />
@@ -264,18 +264,18 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       )}
                     </Button>
                     {openSubmenus.fleet && !isCollapsed && (
-                      <div className="ml-4 border-l pl-2 pt-1">
+                      <div className="ml-4 border-l pl-2 py-1 space-y-0.5">
                         <Button
                           variant="ghost"
                           size="sm"
                           asChild
                           className={cn(
-                            "w-full justify-start",
-                            isActive("/master-data/fleet/head") && "bg-accent text-accent-foreground",
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
+                            isActive("/master-data/fleet/head") && "bg-accent text-accent-foreground"
                           )}
                         >
                           <Link href="/master-data/fleet/head">
-                            Head
+                            <span className="text-[11px]">Head</span>
                           </Link>
                         </Button>
                         <Button
@@ -288,7 +288,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                           )}
                         >
                           <Link href="/master-data/fleet/tail">
-                            Tail
+                            <span className="text-[11px]">Tail</span>
                           </Link>
                         </Button>
                         <Button
@@ -301,7 +301,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                           )}
                         >
                           <Link href="/master-data/fleet/container">
-                            Container
+                            <span className="text-[11px]">Container</span>
                           </Link>
                         </Button>
                       </div>
@@ -323,7 +323,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       <Contact className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
                       {!isCollapsed && (
                         <>
-                          <span className="flex-1 text-left">Customer</span>
+                          <span className="flex-1 text-left text-[11px]">Customer</span>
                           <ChevronRight
                             className={cn("h-4 w-4 transition-transform", openSubmenus.customer && "rotate-90")}
                           />
@@ -331,18 +331,18 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       )}
                     </Button>
                     {openSubmenus.customer && !isCollapsed && (
-                      <div className="ml-4 border-l pl-2 pt-1">
+                      <div className="ml-4 border-l pl-2 py-1 space-y-0.5">
                         <Button
                           variant="ghost"
                           size="sm"
                           asChild
                           className={cn(
-                            "w-full justify-start",
-                            isActive("/master-data/customer/customer") && "bg-accent text-accent-foreground",
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
+                            isActive("/master-data/customer/customer") && "bg-accent text-accent-foreground"
                           )}
                         >
                           <Link href="/master-data/customer/customer">
-                            Customer
+                            <span className="text-[11px]">Customer</span>
                           </Link>
                         </Button>
                         <Button
@@ -355,7 +355,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                           )}
                         >
                           <Link href="/master-data/customer/customer_warehouse">
-                            Warehouse
+                            <span className="text-[11px]">Warehouse</span>
                           </Link>
                         </Button>
                       </div>
@@ -377,7 +377,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       <RouteIcon className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
                       {!isCollapsed && (
                         <>
-                          <span className="flex-1 text-left">Route</span>
+                          <span className="flex-1 text-left text-[11px]">Route</span>
                           <ChevronRight
                             className={cn("h-4 w-4 transition-transform", openSubmenus.route && "rotate-90")}
                           />
@@ -385,18 +385,18 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       )}
                     </Button>
                     {openSubmenus.route && !isCollapsed && (
-                      <div className="ml-4 border-l pl-2 pt-1">
+                      <div className="ml-4 border-l pl-2 py-1 space-y-0.5">
                         <Button
                           variant="ghost"
                           size="sm"
                           asChild
                           className={cn(
-                            "w-full justify-start",
-                            isActive("/master-data/route/route") && "bg-accent text-accent-foreground",
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
+                            isActive("/master-data/route/route") && "bg-accent text-accent-foreground"
                           )}
                         >
                           <Link href="/master-data/route/route">
-                            Route
+                            <span className="text-[11px]">Route</span>
                           </Link>
                         </Button>
                       </div>
@@ -418,7 +418,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       <Settings className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
                       {!isCollapsed && (
                         <>
-                          <span className="flex-1 text-left">Config</span>
+                          <span className="flex-1 text-left text-[11px]">Config</span>
                           <ChevronRight
                             className={cn("h-4 w-4 transition-transform", openSubmenus.config && "rotate-90")}
                           />
@@ -426,18 +426,18 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       )}
                     </Button>
                     {openSubmenus.config && !isCollapsed && (
-                      <div className="ml-4 border-l pl-2 pt-1">
+                      <div className="ml-4 border-l pl-2 py-1 space-y-0.5">
                         <Button
                           variant="ghost"
                           size="sm"
                           asChild
                           className={cn(
-                            "w-full justify-start pl-8 text-sm",
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
                             isActive("/master-data/config/pricing") && "bg-accent text-accent-foreground"
                           )}
                         >
                           <Link href="/master-data/config/pricing">
-                            <span>Pricing</span>
+                            <span className="text-[11px]">Pricing</span>
                           </Link>
                         </Button>
                         <Button
@@ -445,12 +445,12 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                           size="sm"
                           asChild
                           className={cn(
-                            "w-full justify-start pl-8 text-sm",
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
                             isActive("/master-data/config/payment-terms") && "bg-accent text-accent-foreground"
                           )}
                         >
                           <Link href="/master-data/config/payment-terms">
-                            <span>Payment Terms</span>
+                            <span className="text-[11px]">Payment Terms</span>
                           </Link>
                         </Button>
                       </div>
@@ -487,7 +487,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       <Package className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
                       {!isCollapsed && (
                         <>
-                          <span className="flex-1 text-left">Order</span>
+                          <span className="flex-1 text-left text-[11px]">Order</span>
                           <ChevronRight
                             className={cn("h-4 w-4 transition-transform", openSubmenus.order && "rotate-90")}
                           />
@@ -495,18 +495,18 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       )}
                     </Button>
                     {openSubmenus.order && !isCollapsed && (
-                      <div className="ml-4 border-l pl-2 pt-1">
+                      <div className="ml-4 border-l pl-2 py-1 space-y-0.5">
                         <Button
                           variant="ghost"
                           size="sm"
                           asChild
                           className={cn(
-                            "w-full justify-start",
-                            isActive("/operation/order") && "bg-accent text-accent-foreground",
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
+                            isActive("/operation/order") && "bg-accent text-accent-foreground"
                           )}
                         >
                           <Link href="/operation/order">
-                            Orders
+                            <span className="text-[11px]">Orders</span>
                           </Link>
                         </Button>
                       </div>
@@ -528,7 +528,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       <ClipboardList className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
                       {!isCollapsed && (
                         <>
-                          <span className="flex-1 text-left">Runsheet</span>
+                          <span className="flex-1 text-left text-[11px]">Runsheet</span>
                           <ChevronRight
                             className={cn("h-4 w-4 transition-transform", openSubmenus.runsheet && "rotate-90")}
                           />
@@ -536,18 +536,18 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       )}
                     </Button>
                     {openSubmenus.runsheet && !isCollapsed && (
-                      <div className="ml-4 border-l pl-2 pt-1">
+                      <div className="ml-4 border-l pl-2 py-1 space-y-0.5">
                         <Button
                           variant="ghost"
                           size="sm"
                           asChild
                           className={cn(
-                            "w-full justify-start",
-                            isActive("/operation/runsheet") && "bg-accent text-accent-foreground",
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
+                            isActive("/operation/runsheet") && "bg-accent text-accent-foreground"
                           )}
                         >
                           <Link href="/operation/runsheet">
-                            Runsheets
+                            <span className="text-[11px]">Runsheets</span>
                           </Link>
                         </Button>
                       </div>
@@ -585,7 +585,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       <History className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-2")} />
                       {!isCollapsed && (
                         <>
-                          <span className="flex-1 text-left">Trip</span>
+                          <span className="flex-1 text-left text-[11px]">Trip</span>
                           <ChevronRight
                             className={cn("h-4 w-4 transition-transform", openSubmenus.trip && "rotate-90")}
                           />
@@ -593,18 +593,18 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       )}
                     </Button>
                     {openSubmenus.trip && !isCollapsed && (
-                      <div className="ml-4 border-l pl-2 pt-1">
+                      <div className="ml-4 border-l pl-2 py-1 space-y-0.5">
                         <Button
                           variant="ghost"
                           size="sm"
                           asChild
                           className={cn(
-                            "w-full justify-start",
-                            isActive("/transactions/trips") && "bg-accent text-accent-foreground",
+                            "w-full justify-start pl-3 pr-2 h-7 text-[11px]",
+                            isActive("/transactions/trips") && "bg-accent text-accent-foreground"
                           )}
                         >
                           <Link href="/transactions/trips">
-                            Trip History
+                            <span className="text-[11px]">Trip History</span>
                           </Link>
                         </Button>
                       </div>
@@ -639,7 +639,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                 <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
                   <Truck className="h-5 w-5" />
                 </div>
-                <span className="text-lg font-semibold">FleetMaster</span>
+                <span className="text-sm font-semibold">FleetMaster</span>
               </div>
             </div>
 
