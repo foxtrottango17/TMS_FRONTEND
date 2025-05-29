@@ -81,8 +81,8 @@ const config = {
       addBase({
         // Light theme scrollbar
         '::-webkit-scrollbar': {
-          width: '8px',
-          height: '8px',
+          width: '4px',
+          height: '4px',
         },
         '::-webkit-scrollbar-track': {
           backgroundColor: 'rgba(0, 0, 0, 0.05)',
