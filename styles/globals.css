@@ -1,10 +1,99 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px; /* Reduced from default 16px */
+  line-height: 1.4; /* Tighter line height for compactness */
+}
+
+/* Compact typography scale */
+html {
+  font-size: 13px; /* Base font size reduced */
+}
+
+/* Compact text sizes */
+h1 { font-size: 1.75rem; line-height: 1.2; } /* ~23px */
+h2 { font-size: 1.5rem; line-height: 1.3; }  /* ~20px */
+h3 { font-size: 1.25rem; line-height: 1.3; } /* ~16px */
+h4 { font-size: 1.1rem; line-height: 1.4; }  /* ~14px */
+h5 { font-size: 1rem; line-height: 1.4; }    /* ~13px */
+h6 { font-size: 0.9rem; line-height: 1.4; }  /* ~12px */
+
+/* Compact form elements */
+input, select, textarea, button {
+  font-size: 12px !important;
+  padding: 4px 8px !important;
+  line-height: 1.3 !important;
+}
+
+/* Compact labels */
+label {
+  font-size: 12px !important;
+  line-height: 1.3 !important;
+}
+
+/* Compact paragraphs and general text */
+p {
+  font-size: 13px;
+  line-height: 1.4;
+  margin-bottom: 0.75rem; /* Reduced margin */
+}
+
+/* Compact lists */
+ul, ol {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+li {
+  margin-bottom: 0.25rem; /* Reduced list item spacing */
+}
+
+/* Compact table text (for non-tabulator tables) */
+table {
+  font-size: 12px;
+}
+
+th, td {
+  padding: 4px 8px !important;
+  font-size: 12px !important;
+  line-height: 1.3 !important;
+}
+
+/* Compact small text */
+small {
+  font-size: 11px !important;
+}
+
+/* Compact code and pre elements */
+code {
+  font-size: 11px !important;
+  padding: 2px 4px !important;
+}
+
+pre {
+  font-size: 11px !important;
+  line-height: 1.3 !important;
+  padding: 8px !important;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  
+  /* Additional compact utility classes */
+  .text-compact {
+    font-size: 11px !important;
+    line-height: 1.2 !important;
+  }
+  
+  .text-extra-compact {
+    font-size: 10px !important;
+    line-height: 1.1 !important;
+  }
+  
+  .spacing-compact {
+    margin: 0.25rem !important;
+    padding: 0.25rem !important;
   }
 }
 
@@ -43,7 +132,23 @@ body {
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* Compact spacing variables */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 0.75rem;
+    --spacing-lg: 1rem;
+    --spacing-xl: 1.5rem;
+    
+    /* Compact font size variables */
+    --font-xs: 10px;
+    --font-sm: 11px;
+    --font-base: 12px;
+    --font-md: 13px;
+    --font-lg: 14px;
+    --font-xl: 16px;
   }
+  
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
@@ -78,4 +183,67 @@ body {
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+}
+
+/* Compact component-specific styles */
+.sidebar {
+  font-size: 12px !important;
+}
+
+.sidebar * {
+  font-size: inherit !important;
+}
+
+/* Compact navigation */
+nav {
+  font-size: 12px !important;
+}
+
+nav a {
+  padding: 4px 8px !important;
+  font-size: 12px !important;
+}
+
+/* Compact buttons */
+button {
+  font-size: 12px !important;
+  padding: 4px 12px !important;
+  line-height: 1.3 !important;
+}
+
+/* Compact cards and containers */
+.card, [class*="card"] {
+  font-size: 12px !important;
+}
+
+.card-header, [class*="card-header"] {
+  font-size: 13px !important;
+  padding: 8px 12px !important;
+}
+
+.card-content, [class*="card-content"] {
+  font-size: 12px !important;
+  padding: 8px 12px !important;
+}
+
+.card-title, [class*="card-title"] {
+  font-size: 14px !important;
+  line-height: 1.3 !important;
+}
+
+/* Compact modals and dialogs */
+.dialog, .modal, [class*="dialog"], [class*="modal"] {
+  font-size: 12px !important;
+}
+
+/* Compact tooltips */
+.tooltip, [class*="tooltip"] {
+  font-size: 11px !important;
+  padding: 2px 6px !important;
+}
+
+/* Compact badges and tags */
+.badge, .tag, [class*="badge"], [class*="tag"] {
+  font-size: 10px !important;
+  padding: 2px 6px !important;
 }
