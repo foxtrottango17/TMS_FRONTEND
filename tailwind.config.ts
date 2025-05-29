@@ -75,7 +75,39 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    function({ addBase }: { addBase: any }) {
+      addBase({
+        // Light theme scrollbar
+        '::-webkit-scrollbar': {
+          width: '8px',
+          height: '8px',
+        },
+        '::-webkit-scrollbar-track': {
+          backgroundColor: 'rgba(0, 0, 0, 0.05)',
+        },
+        '::-webkit-scrollbar-thumb': {
+          backgroundColor: 'rgba(0, 0, 0, 0.2)',
+          borderRadius: '4px',
+        },
+        '::-webkit-scrollbar-thumb:hover': {
+          backgroundColor: 'rgba(0, 0, 0, 0.35)',
+        },
+        
+        // Dark theme scrollbar
+        '.dark ::-webkit-scrollbar-track': {
+          backgroundColor: 'rgba(255, 255, 255, 0.05)',
+        },
+        '.dark ::-webkit-scrollbar-thumb': {
+          backgroundColor: 'rgba(255, 255, 255, 0.3)',
+        },
+        '.dark ::-webkit-scrollbar-thumb:hover': {
+          backgroundColor: 'rgba(255, 255, 255, 0.5)',
+        },
+      })
+    },
+  ],
 } satisfies Config
 
 export default config
