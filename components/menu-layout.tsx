@@ -170,18 +170,18 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
           )}
         >
           {/* Sidebar Header */}
-          <div className="flex h-14 items-center border-b px-3 flex-shrink-0">
+          <div className="flex h-10 items-center border-b px-3 flex-shrink-0">
             <div className={cn("flex items-center", isCollapsed && "justify-center w-full")}>
-              <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground">
-                {/* <Truck className="h-5 w-5" /> */}
+              <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
+                {/* <Truck className="h-3.5 w-3.5" /> */}
               </div>
               {!isCollapsed && <span className="ml-2 text-xs font-semibold">Fleet Master</span>}
             </div>
           </div>
 
           {/* Sidebar Content */}
-          <div className="h-[calc(100%-64px)] overflow-y-auto">
-            <div className="p-4">
+          <div className="h-[calc(100%-64px)] overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent">
+            <div className={cn("p-4", isCollapsed && "px-2")}>
               {/* Dashboard Link */}
               <Button
                 variant="ghost"
@@ -219,9 +219,9 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       variant="ghost"
                       size="sm"
                       className={cn(
-                        "w-full justify-start",
+                        "w-full justify-start overflow-hidden",
                         openSubmenus.resource && "bg-accent text-accent-foreground",
-                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0",
+                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0 mx-auto",
                       )}
                       onClick={() => toggleSubmenu("resource")}
                     >
@@ -260,9 +260,9 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       variant="ghost"
                       size="sm"
                       className={cn(
-                        "w-full justify-start",
+                        "w-full justify-start overflow-hidden",
                         openSubmenus.fleet && "bg-accent text-accent-foreground",
-                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0",
+                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0 mx-auto",
                       )}
                       onClick={() => toggleSubmenu("fleet")}
                     >
@@ -327,9 +327,9 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       variant="ghost"
                       size="sm"
                       className={cn(
-                        "w-full justify-start",
+                        "w-full justify-start overflow-hidden",
                         openSubmenus.customer && "bg-accent text-accent-foreground",
-                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0",
+                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0 mx-auto",
                       )}
                       onClick={() => toggleSubmenu("customer")}
                     >
@@ -381,9 +381,9 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       variant="ghost"
                       size="sm"
                       className={cn(
-                        "w-full justify-start",
+                        "w-full justify-start overflow-hidden",
                         openSubmenus.route && "bg-accent text-accent-foreground",
-                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0",
+                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0 mx-auto",
                       )}
                       onClick={() => toggleSubmenu("route")}
                     >
@@ -491,9 +491,9 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       variant="ghost"
                       size="sm"
                       className={cn(
-                        "w-full justify-start",
+                        "w-full justify-start overflow-hidden",
                         openSubmenus.order && "bg-accent text-accent-foreground",
-                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0",
+                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0 mx-auto",
                       )}
                       onClick={() => toggleSubmenu("order")}
                     >
@@ -545,9 +545,9 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       variant="ghost"
                       size="sm"
                       className={cn(
-                        "w-full justify-start",
+                        "w-full justify-start overflow-hidden",
                         openSubmenus.dispatch && "bg-accent text-accent-foreground",
-                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0",
+                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0 mx-auto",
                       )}
                       onClick={() => toggleSubmenu("dispatch")}
                     >
@@ -612,9 +612,9 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       variant="ghost"
                       size="sm"
                       className={cn(
-                        "w-full justify-start",
+                        "w-full justify-start overflow-hidden",
                         openSubmenus.tripHistory && "bg-accent text-accent-foreground",
-                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0",
+                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0 mx-auto",
                       )}
                       onClick={() => toggleSubmenu("tripHistory")}
                     >
@@ -669,9 +669,9 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       variant="ghost"
                       size="sm"
                       className={cn(
-                        "w-full justify-start",
+                        "w-full justify-start overflow-hidden",
                         openSubmenus.invoice && "bg-accent text-accent-foreground",
-                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0"
+                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0 mx-auto",
                       )}
                       onClick={() => toggleSubmenu("invoice")}
                     >
@@ -710,9 +710,9 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       variant="ghost"
                       size="sm"
                       className={cn(
-                        "w-full justify-start",
+                        "w-full justify-start overflow-hidden",
                         openSubmenus.payments && "bg-accent text-accent-foreground",
-                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0",
+                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0 mx-auto",
                       )}
                       onClick={() => toggleSubmenu("payments")}
                     >
@@ -751,9 +751,9 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       variant="ghost"
                       size="sm"
                       className={cn(
-                        "w-full justify-start",
+                        "w-full justify-start overflow-hidden",
                         openSubmenus.expenses && "bg-accent text-accent-foreground",
-                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0",
+                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0 mx-auto",
                       )}
                       onClick={() => toggleSubmenu("expenses")}
                     >
@@ -857,9 +857,9 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       variant="ghost"
                       size="sm"
                       className={cn(
-                        "w-full justify-start",
+                        "w-full justify-start overflow-hidden",
                         openSubmenus.profitLoss && "bg-accent text-accent-foreground",
-                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0"
+                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0 mx-auto",
                       )}
                       onClick={() => toggleSubmenu("profitLoss")}
                     >
@@ -914,9 +914,9 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       variant="ghost"
                       size="sm"
                       className={cn(
-                        "w-full justify-start",
+                        "w-full justify-start overflow-hidden",
                         openSubmenus.financialReports && "bg-accent text-accent-foreground",
-                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0"
+                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0 mx-auto",
                       )}
                       onClick={() => toggleSubmenu("financialReports")}
                     >
@@ -986,9 +986,9 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       variant="ghost"
                       size="sm"
                       className={cn(
-                        "w-full justify-start",
+                        "w-full justify-start overflow-hidden",
                         openSubmenus.operationsReports && "bg-accent text-accent-foreground",
-                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0"
+                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0 mx-auto",
                       )}
                       onClick={() => toggleSubmenu("operationsReports")}
                     >
@@ -1103,9 +1103,9 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
                       variant="ghost"
                       size="sm"
                       className={cn(
-                        "w-full justify-start",
+                        "w-full justify-start overflow-hidden",
                         openSubmenus.customers && "bg-accent text-accent-foreground",
-                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0"
+                        isCollapsed && "flex h-9 w-9 shrink-0 items-center justify-center p-0 mx-auto",
                       )}
                       onClick={() => toggleSubmenu("customers")}
                     >
@@ -1297,7 +1297,7 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
       {/* Main Content */}
       <div className="flex flex-col flex-1 min-w-0 h-full">
         {/* Header */}
-        <header className="flex h-16 items-center border-b bg-background px-4 md:px-6 flex-shrink-0">
+        <header className="flex h-10 items-center border-b bg-background px-4 md:px-6 flex-shrink-0">
           {isMobile ? (
             <Button variant="ghost" size="icon" className="mr-2" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
               <Menu className="h-5 w-5" />
@@ -1312,32 +1312,33 @@ export default function MenuLayout({ children }: { children: React.ReactNode }) 
 
           <div className="ml-auto flex items-center gap-1">
             <div className="relative hidden md:flex">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input type="search" placeholder="Search..." className="w-[200px] rounded-md border pl-8 md:w-[300px]" />
+              <Search className="absolute left-2 top-1.5 h-3.5 w-3.5 text-muted-foreground" />
+              <Input type="search" placeholder="Search..." className="w-[160px] h-7 text-xs rounded-md border pl-7 md:w-[240px]" />
             </div>
 
-            <Button variant="ghost" size="icon" className="relative">
-              <Bell className="h-5 w-5" />
-              <Badge className="absolute -right-1 -top-1 h-5 w-5 rounded-full p-0 text-xs">3</Badge>
+            <Button variant="ghost" size="icon" className="relative h-7 w-7">
+              <Bell className="h-3.5 w-3.5" />
+              <Badge className="absolute -right-1 -top-1 h-4 w-4 rounded-full p-0 text-[10px] flex items-center justify-center">3</Badge>
             </Button>
 
             {/* Theme Toggle */}
             <Button
               variant="ghost"
               size="icon"
+              className="h-7 w-7"
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
               aria-label="Toggle theme"
             >
-              {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              {theme === "dark" ? <Sun className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
             </Button>
 
             {/* User Menu */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="rounded-full">
-                  <Avatar>
-                    <AvatarImage src="/placeholder.svg?height=32&width=32" alt="User" />
-                    <AvatarFallback>JD</AvatarFallback>
+                <Button variant="ghost" size="icon" className="h-7 w-7 rounded-full">
+                  <Avatar className="h-6 w-6">
+                    <AvatarImage src="/placeholder.svg?height=24&width=24" alt="User" />
+                    <AvatarFallback className="text-[10px]">JD</AvatarFallback>
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
